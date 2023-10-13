@@ -1,0 +1,19 @@
+.user-block__image-item {
+  width: 63;
+  height: 63;
+}
+
+.film-card__poster--image-item {
+  width: 218;
+  height: 327;
+}
+
+.btn--play__icon-item {
+  width: 19;
+  height: 19;
+}
+
+.btn--list__icon-item {
+  width: 19;
+  height: 20;
+}

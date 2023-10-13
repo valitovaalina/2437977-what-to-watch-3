@@ -1,6 +1,11 @@
-function SignInScreen(): JSX.Element {
+import { Helmet } from 'react-helmet-async';
+
+function SignInPage(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>Что посмотреть. Авторизуйтесь</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
           <a href="main.html" className="logo__link">
@@ -68,4 +73,4 @@ function SignInScreen(): JSX.Element {
   );
 }
 
-export default SignInScreen;
+export default SignInPage;

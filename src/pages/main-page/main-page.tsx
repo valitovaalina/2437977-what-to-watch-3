@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async';
+import { Fragment } from 'react';
 import FilmList from '../../components/film-list/film-list';
 import { Film } from '../../components/films/films';
 import './main-page.css';
@@ -11,7 +13,10 @@ export type MainPageProps = {
 
 function MainPage({ filmCardTitle, filmCardGenre, filmCardYear, films }: MainPageProps): JSX.Element {
   return (
-    <>
+    <Fragment>
+      <Helmet>
+        <title>Что посмотреть. Главная</title>
+      </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img
@@ -154,7 +159,7 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear, films }: MainPag
           </div>
         </footer>
       </div>
-    </>
+    </Fragment>
   );
 }
 

@@ -1,10 +1,15 @@
+import { Helmet } from 'react-helmet-async';
+import { Fragment } from 'react';
 import './film-page.css';
 import FilmList from '../../components/film-list/film-list';
 import { films } from '../../components/films/films';
 
 function FilmPage(): JSX.Element {
   return (
-    <>
+    <Fragment>
+      <Helmet>
+        <title>Что посмотреть. Описание фильма</title>
+      </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -131,7 +136,7 @@ function FilmPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={films.slice(1, 4)} />
+          <FilmList films={films.slice(1, 5)} />
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -146,7 +151,7 @@ function FilmPage(): JSX.Element {
           </div>
         </footer>
       </div>
-    </>
+    </Fragment>
   );
 }
 

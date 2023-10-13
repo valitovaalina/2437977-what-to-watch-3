@@ -1,8 +1,12 @@
+import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
 
 function AddReviewPage(): JSX.Element {
   return (
     <section className="film-card film-card--full">
+      <Helmet>
+        <title>Что посмотреть. Оставьте отзыв!</title>
+      </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img

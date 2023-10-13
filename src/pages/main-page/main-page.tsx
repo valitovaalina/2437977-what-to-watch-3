@@ -138,7 +138,7 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear, films }: MainPag
             </li>
           </ul>
           <div className="catalog__films-list">
-          <FilmList films={films}/>
+            <FilmList films={films} />
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">

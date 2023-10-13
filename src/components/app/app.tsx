@@ -1,14 +1,10 @@
-import MainScreen from '../../pages/main-screen/main-screen';
+import MainScreen, { MainPageProps } from '../../pages/main-page/main-page';
 
-type AppScreenProps = {
-  filmCardTitle: string;
-  filmCardGenre: string;
-  filmCardYear: number;
-}
+type AppProps = MainPageProps;
 
-function App({ filmCardTitle, filmCardGenre, filmCardYear }: AppScreenProps): JSX.Element {
+function App(props: AppProps): JSX.Element {
   return (
-    <MainScreen filmCardTitle={filmCardTitle} filmCardGenre={filmCardGenre} filmCardYear={filmCardYear} />
+    <MainScreen {...props} />
   );
 }
 

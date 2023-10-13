@@ -1,4 +1,6 @@
-function PlayerScreen(): JSX.Element {
+import './player-page.css';
+
+function PlayerPage(): JSX.Element {
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg" />
@@ -9,7 +11,7 @@ function PlayerScreen(): JSX.Element {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value={30} max={100} />
-            <div className="player__toggler" style={{ left: '30%' }}>
+            <div className="player__toggler">
               Toggler
             </div>
           </div>
@@ -17,14 +19,14 @@ function PlayerScreen(): JSX.Element {
         </div>
         <div className="player__controls-row">
           <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width={19} height={19}>
+            <svg className="player__play--icon-item" viewBox="0 0 19 19">
               <use xlinkHref="#play-s" />
             </svg>
             <span>Play</span>
           </button>
           <div className="player__name">Transpotting</div>
           <button type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width={27} height={27}>
+            <svg className="player__full-screen--icon-item" viewBox="0 0 27 27">
               <use xlinkHref="#full-screen" />
             </svg>
             <span>Full screen</span>
@@ -35,4 +37,4 @@ function PlayerScreen(): JSX.Element {
   );
 }
 
-export default PlayerScreen;
+export default PlayerPage;

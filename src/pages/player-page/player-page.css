@@ -1,0 +1,13 @@
+.player__toggler {
+  left: 30%;
+}
+
+.player__play--icon-item {
+  width: 19;
+  height: 19;
+}
+
+.player__full-screen--icon-item {
+  width: 27;
+  height: 27;
+}

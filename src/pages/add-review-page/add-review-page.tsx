@@ -1,4 +1,6 @@
-function AddReviewScreen(): JSX.Element {
+import './add-review-page.css';
+
+function AddReviewPage(): JSX.Element {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -33,10 +35,9 @@ function AddReviewScreen(): JSX.Element {
             <li className="user-block__item">
               <div className="user-block__avatar">
                 <img
+                  className="user-block__image-item"
                   src="img/avatar.jpg"
                   alt="User avatar"
-                  width={63}
-                  height={63}
                 />
               </div>
             </li>
@@ -47,10 +48,9 @@ function AddReviewScreen(): JSX.Element {
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img
+            className="film-card__poster--image-item"
             src="img/the-grand-budapest-hotel-poster.jpg"
             alt="The Grand Budapest Hotel poster"
-            width={218}
-            height={327}
           />
         </div>
       </div>
@@ -181,4 +181,4 @@ function AddReviewScreen(): JSX.Element {
   );
 }
 
-export default AddReviewScreen;
+export default AddReviewPage;

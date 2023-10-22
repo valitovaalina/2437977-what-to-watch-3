@@ -1,15 +1,15 @@
 import React from 'react';
-import { Film } from '../films/films';
+import { Film } from '../consts';
 import FilmCard from '../film-card/film-card';
 
 type FilmListProps = {
   films: Film[];
 }
 
-function FilmList({films}: FilmListProps): React.ReactElement {
+function FilmList({ films }: FilmListProps): React.ReactElement {
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <FilmCard key={film.name} {...film}/>)}
+      {films.map((film) => <FilmCard key={film.name} film={film} />)}
     </div>
   );
 }

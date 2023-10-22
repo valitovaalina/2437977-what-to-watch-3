@@ -1,4 +1,4 @@
-import { Film } from "../components/consts";
+import { Film } from '../components/consts';
 
 export const films: Film[] = [
   {

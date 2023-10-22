@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../components/consts';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 
- export type AddReviewPageProps = {
+export type AddReviewPageProps = {
   films: Film[];
 }
 

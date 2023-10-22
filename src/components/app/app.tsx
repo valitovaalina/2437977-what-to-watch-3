@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import MainScreen, { MainPageProps } from '../../pages/main-page/main-page';
+import MainPage, { MainPageProps } from '../../pages/main-page/main-page';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import MyListPage from '../../pages/my-list-page/my-list-page';
 import FilmPage from '../../pages/film-page/film-page';
@@ -19,7 +19,7 @@ function App(props: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainScreen {...props} />}
+            element={<MainPage {...props} />}
           />
           <Route
             path={AppRoute.Signin}
@@ -29,23 +29,23 @@ function App(props: AppProps): JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MyListPage />
+                <MyListPage {...props} />
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage />}
+            element={<FilmPage {...props}/>}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<AddReviewPage />}
+            element={<AddReviewPage {...props}/>}
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage />}
+            element={<PlayerPage {...props}/>}
           />
           <Route
             path="*"

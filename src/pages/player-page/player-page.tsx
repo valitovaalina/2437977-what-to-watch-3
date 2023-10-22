@@ -1,16 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import './player-page.css';
+import { Link, useParams } from 'react-router-dom';
+import { Film } from '../../components/consts';
 
-function PlayerPage(): JSX.Element {
+type PlayerPageProps = {
+  films: Film[];
+}
+
+function PlayerPage({ films }: PlayerPageProps): JSX.Element {
+  const { id } = useParams();
+  const currentFilmId = Number(id);
+  const currentFilm = films.at(currentFilmId);
+
   return (
     <div className="player">
       <Helmet>
         <title>Что посмотреть. Видеоплеер</title>
       </Helmet>
       <video src="#" className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">
-        Exit
-      </button>
+      <Link to={`/films/${currentFilm?.id}`}>
+        <button type="button" className="player__exit">
+          Exit
+        </button>
+      </Link>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">

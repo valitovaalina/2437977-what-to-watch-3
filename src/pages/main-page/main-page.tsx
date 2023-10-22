@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
 import FilmList from '../../components/film-list/film-list';
-import { Film } from '../../components/films/films';
+import { AppRoute, Film } from '../../components/consts';
 import './main-page.css';
+import { Link } from 'react-router-dom';
 
 export type MainPageProps = {
   filmCardTitle: string;
@@ -27,11 +28,11 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear, films }: MainPag
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link to={AppRoute.Root} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <ul className="user-block">
             <li className="user-block__item">

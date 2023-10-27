@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import './player-page.css';
 import { Link, useParams } from 'react-router-dom';
-import { Film } from '../../components/consts';
+import { Film } from '@components/consts';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 type PlayerPageProps = {
   films: Film[];
@@ -12,6 +13,9 @@ function PlayerPage({ films }: PlayerPageProps): JSX.Element {
   const currentFilmId = Number(id);
   const currentFilm = films.at(currentFilmId);
 
+  if (!id) {
+    return <NotFoundPage />;
+  }
   return (
     <div className="player">
       <Helmet>

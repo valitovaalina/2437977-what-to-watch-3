@@ -1,13 +1,12 @@
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Review } from "../consts";
-import { Film } from "../consts";
-import { films } from "../../mocks/films";
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { Review } from '../consts';
+import { films } from '@mocks/films';
 
 function AddReviewForm(): JSX.Element {
   const film = films[0];
   const [filmRating, setFilmRating] = useState(0);
   const textArea = useRef<HTMLTextAreaElement>(null);
-  const [reviewForm, setReviewForm] = useState<Review>({
+  const [, setReviewForm] = useState<Review>({
     id: 0,
     text: '',
     author: '',
@@ -33,7 +32,7 @@ function AddReviewForm(): JSX.Element {
       };
       setReviewForm(review);
     }
-  }
+  };
 
   return (
     <div className="add-review">
@@ -160,7 +159,7 @@ function AddReviewForm(): JSX.Element {
             name="review-text"
             id="review-text"
             placeholder="Review text"
-            defaultValue={""}
+            defaultValue=''
           />
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit">

@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
-import './film-page.css';
-import FilmList from '../../components/film-list/film-list';
+import FilmList from '@components/film-list/film-list';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute, Film } from '../../components/consts';
+import { AppRoute, Film } from '@components/consts';
+import NotFoundPage from '../not-found-page/not-found-page';
+import './film-page.css';
 
 type FilmPageProps = {
   films: Film[];
@@ -13,7 +14,9 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
   const { id } = useParams();
   const currentFilmId = Number(id);
   const currentFilm = films.at(currentFilmId);
-
+  if (!id) {
+    return <NotFoundPage />;
+  }
   return (
     <Fragment>
       <Helmet>

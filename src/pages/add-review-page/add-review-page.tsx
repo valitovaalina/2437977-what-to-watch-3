@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
-import { Film } from '../../components/consts';
+import { Film } from '@components/consts';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute } from '../../components/consts';
-import AddReviewForm from '../../components/add-review-form/add-review-form';
+import { AppRoute } from '@components/consts';
+import AddReviewForm from '@components/add-review-form/add-review-form';
 
- export type AddReviewPageProps = {
+export type AddReviewPageProps = {
   films: Film[];
 }
 

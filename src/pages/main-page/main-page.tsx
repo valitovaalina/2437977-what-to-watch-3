@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
-import FilmList from '../../components/film-list/film-list';
-import { AppRoute, Film } from '../../components/consts';
+import FilmList from '@components/film-list/film-list';
+import { AppRoute, Film } from '@components/consts';
 import './main-page.css';
 import { Link } from 'react-router-dom';
 

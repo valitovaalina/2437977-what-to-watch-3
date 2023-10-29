@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { AppRoute } from '../../components/consts';
+import { AppRoute } from '@components/consts';
 import { Link } from 'react-router-dom';
 
 function SignInPage(): JSX.Element {
@@ -10,7 +10,6 @@ function SignInPage(): JSX.Element {
       </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
-          src/pages/main-page/main-page.tsx
         </div>
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>

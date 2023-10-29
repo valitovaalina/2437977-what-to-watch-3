@@ -1,27 +1,32 @@
 import './film-card.css';
 import { Film } from '../consts';
 import { Link } from 'react-router-dom';
+import VideoPlayer from '../video-player/video-player';
+import { useEffect, useState } from 'react';
 
 type FilmCardProps = {
   film: Film;
 }
 
 function FilmCard({ film }: FilmCardProps): JSX.Element {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [needToActiveVideo, setNeedToActiveVideo] = useState(false);
+
+  useEffect(() => {
+    if (needToActiveVideo) {
+      setTimeout(() => setIsPlaying(true), 1000);
+    }
+  }, [needToActiveVideo]);
+
   return (
-    <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
-        <img
-          className="small-film-card__image-item"
-          src={film.poster}
-          alt={film.name}
-        />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${film.id}`}>
-          {film.name}
-        </Link>
-      </h3>
-    </article>
+    <Link className="small-film-card__link small-film-card catalog__films-card" to={`/films/${film.id}`} onMouseEnter={() => setNeedToActiveVideo(true)} onMouseLeave={() => {
+      setNeedToActiveVideo(false);
+      setIsPlaying(false);
+    }}
+    >
+      <VideoPlayer isPlaying={isPlaying} isMuting src={film.videoPreview} poster={film.poster} />
+      {!isPlaying && film.name}
+    </Link>
   );
 }
 

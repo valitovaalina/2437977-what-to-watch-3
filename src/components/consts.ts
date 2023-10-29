@@ -25,6 +25,7 @@ export type Film = {
   starring: string[];
   background: string;
   runTime: string;
+  videoPreview: string;
 }
 
 export type Review = {
@@ -33,5 +34,5 @@ export type Review = {
   author: string;
   date: string;
   rating: number;
-  filmId: number;
+  filmId?: number;
 }

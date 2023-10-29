@@ -25,6 +25,7 @@ export type Film = {
   starring: string[];
   background: string;
   runTime: string;
+  videoPreview: string;
 }
 
 export type Review = {

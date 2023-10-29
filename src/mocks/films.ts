@@ -25,7 +25,8 @@ export const films: Film[] = [
       'Jeff Goldblum'
     ],
     background: 'img/bg-the-grand-budapest-hotel.jpg',
-    runTime: '1h 39m'
+    runTime: '1h 39m',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 1,
@@ -38,7 +39,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 2,
@@ -51,7 +53,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 3,
@@ -64,7 +67,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 4,
@@ -77,7 +81,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 5,
@@ -90,7 +95,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 6,
@@ -103,7 +109,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 7,
@@ -116,7 +123,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 8,
@@ -129,7 +137,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 9,
@@ -142,7 +151,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 10,
@@ -155,7 +165,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 11,
@@ -168,7 +179,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 12,
@@ -181,7 +193,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 13,
@@ -194,7 +207,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 14,
@@ -207,7 +221,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 15,
@@ -220,7 +235,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 16,
@@ -233,7 +249,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 17,
@@ -246,7 +263,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 18,
@@ -259,7 +277,8 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 19,
@@ -272,6 +291,7 @@ export const films: Film[] = [
     director: 'Cool Name',
     starring: [],
     background: '',
-    runTime: '2h'
+    runTime: '2h',
+    videoPreview: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
 ];

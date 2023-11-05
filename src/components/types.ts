@@ -1,0 +1,30 @@
+import { store } from '../store/index.js';
+import { Genre } from './consts.js';
+
+export type Film = {
+  id: number;
+  name: string;
+  genre: Genre;
+  released: number;
+  poster: string;
+  rating: number;
+  description: string;
+  director: string;
+  starring: string[];
+  background: string;
+  runTime: string;
+  videoPreview: string;
+}
+
+export type Review = {
+  id: number;
+  text: string;
+  author: string;
+  date: string;
+  rating: number;
+  filmId?: number;
+}
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

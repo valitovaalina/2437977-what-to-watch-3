@@ -9,6 +9,7 @@ import PlayerPage from '@pages/player-page/player-page';
 import NotFoundPage from '@pages/not-found-page/not-found-page';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import PrivateRoute from '../private-route/private-route';
+import { films } from '@mocks/films';
 
 type AppProps = MainPageProps;
 
@@ -31,21 +32,21 @@ function App(props: AppProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MyListPage {...props} />
+                <MyListPage {...props} films={films}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage {...props}/>}
+            element={<FilmPage {...props} films={films}/>}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<AddReviewPage {...props}/>}
+            element={<AddReviewPage {...props} films={films}/>}
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage {...props}/>}
+            element={<PlayerPage {...props} films={films}/>}
           />
           <Route
             path="*"

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Film } from '@components/consts';
+import { Film } from '@components/types';
 import React from 'react';
 
 type DetailsProps = {

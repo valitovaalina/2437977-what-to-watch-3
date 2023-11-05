@@ -1,5 +1,5 @@
 import React from 'react';
-import { Film } from '../consts';
+import { Film } from '../types';
 import FilmCard from '../film-card/film-card';
 
 type FilmListProps = {

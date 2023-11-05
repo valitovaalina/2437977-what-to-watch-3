@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { Review } from '../consts';
+import { Review } from '../types';
 import { films } from '@mocks/films';
 
 function AddReviewForm(): JSX.Element {

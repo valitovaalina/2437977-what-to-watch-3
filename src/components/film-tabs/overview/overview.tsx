@@ -1,4 +1,4 @@
-import { Film } from '@components/consts';
+import { Film } from '@components/types';
 import { useParams } from 'react-router-dom';
 
 type OverviewProps = {

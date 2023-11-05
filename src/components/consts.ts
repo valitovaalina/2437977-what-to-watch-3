@@ -13,26 +13,17 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export type Film = {
-  id: number;
-  name: string;
-  genre: string;
-  released: number;
-  poster: string;
-  rating: number;
-  description: string;
-  director: string;
-  starring: string[];
-  background: string;
-  runTime: string;
-  videoPreview: string;
-}
+export const hoverFilmCardTime = 1000;
 
-export type Review = {
-  id: number;
-  text: string;
-  author: string;
-  date: string;
-  rating: number;
-  filmId?: number;
+export enum Genre {
+  All = 'All Genres',
+  Comedy = 'Comedy',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Drama',
+  Horror = 'Horror',
+  KidsFamily = 'Kids & Family',
+  Romance = 'Romance',
+  SciFi = 'Sci-Fi',
+  Thriller = 'Thriller'
 }

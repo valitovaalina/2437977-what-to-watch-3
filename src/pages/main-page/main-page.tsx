@@ -6,6 +6,7 @@ import './main-page.css';
 import { Link } from 'react-router-dom';
 import GenreList from '@components/genre-list/genre-list';
 import { useAppSelector } from '@components/hooks/hooks';
+import ShowMoreButton from '@components/show-more-button/show-more-button';
 
 export type MainPageProps = {
   filmCardTitle: string;
@@ -15,6 +16,7 @@ export type MainPageProps = {
 
 function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps): JSX.Element {
   const filmsGenre = useAppSelector((state) => state.filmList);
+  const filmCardCount = useAppSelector((state) => state.filmCardCount);
   return (
     <Fragment>
       <Helmet>
@@ -90,13 +92,9 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList />
           <div className="catalog__films-list">
-            <FilmList films={filmsGenre} />
+            <FilmList films={filmsGenre.slice(0, filmCardCount)} />
           </div>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          {filmCardCount !== filmsGenre.length && <ShowMoreButton/>}
         </section>
         <footer className="page-footer">
           <div className="logo">

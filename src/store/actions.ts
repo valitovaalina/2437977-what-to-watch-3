@@ -4,3 +4,5 @@ import { Genre } from '@components/consts';
 export const changeGenre = createAction('main/changeGenre', (genre: Genre) => ({ payload: genre }));
 
 export const getGenreFilms = createAction('main/getGenreFilms');
+
+export const setFilmCardCount = createAction('main/setFilmCardCount');

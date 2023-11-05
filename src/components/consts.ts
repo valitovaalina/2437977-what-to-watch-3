@@ -1,3 +1,9 @@
+export const Setting = {
+  filmCardTitle: 'The Grand Budapest Hotel',
+  filmCardGenre: 'Drama',
+  filmCardYear: 2014
+};
+
 export enum AppRoute {
   Root = '/',
   Signin = '/login',
@@ -27,3 +33,5 @@ export enum Genre {
   SciFi = 'Sci-Fi',
   Thriller = 'Thriller'
 }
+
+export const visibleFilmCardCount = 8;

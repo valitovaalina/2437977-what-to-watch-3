@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { reviews } from '@mocks/reviews.ts';
-import { Film } from '../consts';
+import { Film } from '../types';
 import Overview from '@components/film-tabs/overview/overview';
 import Details from '@components/film-tabs/details/details';
 import Reviews from '@components/film-tabs/reviews/reviews';

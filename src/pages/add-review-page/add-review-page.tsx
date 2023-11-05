@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
-import { Film } from '@components/consts';
+import { Film } from '@components/types';
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '@components/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';

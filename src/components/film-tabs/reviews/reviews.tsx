@@ -1,4 +1,4 @@
-import { Review } from '@components/consts';
+import { Review } from '@components/types';
 import ReviewItem from '@components/film-tabs/reviews/review-item';
 
 type ReviewsProps = {

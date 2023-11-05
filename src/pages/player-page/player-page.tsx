@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import './player-page.css';
 import { Link, useParams } from 'react-router-dom';
-import { Film } from '@components/consts';
+import { Film } from '@components/types';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 type PlayerPageProps = {

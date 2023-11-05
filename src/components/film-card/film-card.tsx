@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import './film-card.css';
-import { Film } from '../consts';
+import { Film } from '../types';
 import { Link } from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
-import { useEffect, useState } from 'react';
+import { hoverFilmCardTime } from '../consts';
 
 type FilmCardProps = {
   film: Film;
@@ -13,9 +14,15 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   const [needToActiveVideo, setNeedToActiveVideo] = useState(false);
 
   useEffect(() => {
+    let cleanFlag = true;
+
     if (needToActiveVideo) {
-      setTimeout(() => setIsPlaying(true), 1000);
+      setTimeout(() => cleanFlag && setIsPlaying(true), hoverFilmCardTime);
     }
+
+    return () => {
+      cleanFlag = false;
+    };
   }, [needToActiveVideo]);
 
   return (
@@ -24,8 +31,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
       setIsPlaying(false);
     }}
     >
-      <VideoPlayer isPlaying={isPlaying} isMuting src={film.videoPreview} poster={film.poster} />
-      {!isPlaying && film.name}
+      {!isPlaying ? <img src={film.poster} /> : <VideoPlayer isPlaying={isPlaying} isMuting src={film.videoPreview} poster={film.poster} />}
     </Link>
   );
 }

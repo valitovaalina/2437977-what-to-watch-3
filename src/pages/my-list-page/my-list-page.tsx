@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import './my-list-page.css';
 import FilmList from '@components/film-list/film-list';
-import { AppRoute, Film } from '@components/consts';
+import { AppRoute } from '@components/consts';
+import { Film } from '@components/types';
 import { Link } from 'react-router-dom';
 
 type MyListPageProps = {

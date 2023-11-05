@@ -1,10 +1,11 @@
-import { Film } from '@components/consts';
+import { Film } from '@components/types';
+import { Genre } from '@components/consts';
 
 export const films: Film[] = [
   {
     id: 0,
     name: 'The Grand Budapest Hotel',
-    genre: 'Drama',
+    genre: Genre.Drama,
     released: 2014,
     poster: 'img/the-grand-budapest-hotel-poster.jpg',
     rating: 8.9,
@@ -31,7 +32,7 @@ export const films: Film[] = [
   {
     id: 1,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
-    genre: 'Fantasy',
+    genre: Genre.SciFi,
     released: 2018,
     poster: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     rating: 9,
@@ -45,7 +46,7 @@ export const films: Film[] = [
   {
     id: 2,
     name: 'Bohemian Rhapsody',
-    genre: 'Biography',
+    genre: Genre.Documentary,
     released: 2018,
     poster: 'img/bohemian-rhapsody.jpg',
     rating: 9,
@@ -59,7 +60,7 @@ export const films: Film[] = [
   {
     id: 3,
     name: 'Macbeth',
-    genre: 'Drama',
+    genre: Genre.Drama,
     released: 2015,
     poster: 'img/macbeth.jpg',
     rating: 9,
@@ -73,7 +74,7 @@ export const films: Film[] = [
   {
     id: 4,
     name: 'Aviator',
-    genre: 'Drama',
+    genre: Genre.Drama,
     released: 2004,
     poster: 'img/aviator.jpg',
     rating: 9,
@@ -87,7 +88,7 @@ export const films: Film[] = [
   {
     id: 5,
     name: 'We need to talk about Kevin',
-    genre: 'Thriller',
+    genre: Genre.Thriller,
     released: 2011,
     poster: 'img/we-need-to-talk-about-kevin.jpg',
     rating: 9,
@@ -101,7 +102,7 @@ export const films: Film[] = [
   {
     id: 6,
     name: 'What We Do in the Shadows',
-    genre: 'Comedy',
+    genre: Genre.Horror,
     released: 2014,
     poster: 'img/what-we-do-in-the-shadows.jpg',
     rating: 9,
@@ -115,7 +116,7 @@ export const films: Film[] = [
   {
     id: 7,
     name: 'Revenant',
-    genre: 'Adventure',
+    genre: Genre.KidsFamily,
     released: 2015,
     poster: 'img/revenant.jpg',
     rating: 9,
@@ -129,7 +130,7 @@ export const films: Film[] = [
   {
     id: 8,
     name: 'Johnny English',
-    genre: 'Comedy',
+    genre: Genre.Comedy,
     released: 2003,
     poster: 'img/johnny-english.jpg',
     rating: 9,
@@ -143,7 +144,7 @@ export const films: Film[] = [
   {
     id: 9,
     name: 'Shutter Island',
-    genre: 'Thriller',
+    genre: Genre.Thriller,
     released: 2010,
     poster: 'img/shutter-island.jpg',
     rating: 9,
@@ -157,7 +158,7 @@ export const films: Film[] = [
   {
     id: 10,
     name: 'Pulp Fiction',
-    genre: 'Thriller',
+    genre: Genre.Crime,
     released: 1994,
     poster: 'img/pulp-fiction.jpg',
     rating: 9,
@@ -171,7 +172,7 @@ export const films: Film[] = [
   {
     id: 11,
     name: 'No Country for Old Men',
-    genre: 'Thriller',
+    genre: Genre.Thriller,
     released: 2007,
     poster: 'img/no-country-for-old-men.jpg',
     rating: 9,
@@ -185,7 +186,7 @@ export const films: Film[] = [
   {
     id: 12,
     name: 'Snatch',
-    genre: 'Comedy',
+    genre: Genre.Comedy,
     released: 2000,
     poster: 'img/snatch.jpg',
     rating: 9,
@@ -199,7 +200,7 @@ export const films: Film[] = [
   {
     id: 13,
     name: 'Moonrise Kingdom',
-    genre: 'Comedy',
+    genre: Genre.KidsFamily,
     released: 2012,
     poster: 'img/moonrise-kingdom.jpg',
     rating: 9,
@@ -213,7 +214,7 @@ export const films: Film[] = [
   {
     id: 14,
     name: 'Seven Years in Tibet',
-    genre: 'Adventure',
+    genre: Genre.Documentary,
     released: 1997,
     poster: 'img/seven-years-in-tibet.jpg',
     rating: 9,
@@ -227,7 +228,7 @@ export const films: Film[] = [
   {
     id: 15,
     name: 'Midnight Special',
-    genre: 'Adventure',
+    genre: Genre.SciFi,
     released: 2016,
     poster: 'img/midnight-special.jpg',
     rating: 9,
@@ -241,7 +242,7 @@ export const films: Film[] = [
   {
     id: 16,
     name: 'War of the Worlds',
-    genre: 'Adventure',
+    genre: Genre.SciFi,
     released: 2005,
     poster: 'img/war-of-the-worlds.jpg',
     rating: 9,
@@ -255,7 +256,7 @@ export const films: Film[] = [
   {
     id: 17,
     name: 'Dardjeeling Limited',
-    genre: 'Adventure',
+    genre: Genre.Comedy,
     released: 2007,
     poster: 'img/dardjeeling-limited.jpg',
     rating: 9,
@@ -269,7 +270,7 @@ export const films: Film[] = [
   {
     id: 18,
     name: 'Orlando',
-    genre: 'Drama',
+    genre: Genre.Drama,
     released: 1992,
     poster: 'img/orlando.jpg',
     rating: 9,
@@ -283,7 +284,7 @@ export const films: Film[] = [
   {
     id: 19,
     name: 'Mindhunter',
-    genre: 'Thriller',
+    genre: Genre.Thriller,
     released: 2017,
     poster: 'img/mindhunter.jpg',
     rating: 9,

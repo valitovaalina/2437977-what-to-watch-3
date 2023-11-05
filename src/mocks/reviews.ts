@@ -1,4 +1,4 @@
-import { Review } from '@components/consts';
+import { Review } from '@components/types';
 
 export const reviews: Review[] = [
   {

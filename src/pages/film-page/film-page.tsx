@@ -89,7 +89,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img
                 className="film-card__poster--image-item"
-                src={currentFilm?.poster}
+                src={currentFilm?.previewImage}
                 alt={`${currentFilm?.name} poster`}
               />
             </div>

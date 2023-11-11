@@ -4,10 +4,13 @@ import ReactDOM from 'react-dom/client';
 import App from '@components/app/app';
 import { store } from './store';
 import { Setting } from '@components/consts';
+import { fetchFilms } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchFilms());
 
 root.render(
   <React.StrictMode>

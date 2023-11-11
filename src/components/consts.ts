@@ -35,3 +35,9 @@ export enum Genre {
 }
 
 export const visibleFilmCardCount = 8;
+
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+}

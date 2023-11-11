@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { Review } from '../types';
-import { films } from '@mocks/films';
+import { useAppSelector } from '../hooks/hooks';
 
 function AddReviewForm(): JSX.Element {
+  const films = useAppSelector((state) => state.filmList);
   const film = films[0];
   const [filmRating, setFilmRating] = useState(0);
   const textArea = useRef<HTMLTextAreaElement>(null);

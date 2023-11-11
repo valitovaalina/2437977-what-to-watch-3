@@ -15,7 +15,7 @@ export type MainPageProps = {
 }
 
 function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps): JSX.Element {
-  const filmsGenre = useAppSelector((state) => state.filmList);
+  const filmsGenre = useAppSelector((state) => state.sortedFilmList);
   const filmCardCount = useAppSelector((state) => state.filmCardCount);
   return (
     <Fragment>

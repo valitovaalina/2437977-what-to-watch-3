@@ -7,6 +7,7 @@ import { Film } from '@components/types';
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '@components/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';
+import User from '@components/user/user';
 
 export type AddReviewPageProps = {
   films: Film[];
@@ -50,20 +51,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
               </li>
             </ul>
           </nav>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  className="user-block__image-item"
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <User />
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img

@@ -15,10 +15,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'types': path.resolve(__dirname, './src/types'),
+      '@types': path.resolve(__dirname, './src/types'),
       '@components': path.resolve(__dirname, './src/components'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@mocks': path.resolve(__dirname, './src/mocks'),
+      '@services': path.resolve(__dirname, './src/services'),
+      '@store': path.resolve(__dirname, './src/store'),
     },
   },
 });

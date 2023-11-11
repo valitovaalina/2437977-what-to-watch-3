@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus, Genre } from '@components/consts';
-import { Film } from '@components/types';
+import { Film, UserData } from '@components/types';
 
 export const Action = {
   CHANGE_GENRE: 'main/changeGenre',
@@ -10,7 +10,8 @@ export const Action = {
   FILL_FILMS: 'fillFilms',
   APP_SET_ERROR: 'app/setError',
   SET_AUTH_STATUS: 'setAuthStatus',
-  SET_DATA_IS_LOADING: 'setDataIsLoading'
+  SET_DATA_IS_LOADING: 'setDataIsLoading',
+  SAVE_USER: 'saveUser',
 };
 
 export const changeGenre = createAction(Action.CHANGE_GENRE, (genre: Genre) => ({ payload: genre }));
@@ -19,3 +20,4 @@ export const fillFilms = createAction<Film[]>(Action.FILL_FILMS);
 export const setDataIsLoading = createAction<boolean>(Action.SET_DATA_IS_LOADING);
 export const setError = createAction<string | null>(Action.APP_SET_ERROR);
 export const setAuthorizationStatus = createAction<AuthorizationStatus>(Action.SET_AUTH_STATUS);
+export const saveUser = createAction<UserData>(Action.SAVE_USER);

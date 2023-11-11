@@ -10,6 +10,7 @@ import { Film } from '@components/types';
 import NotFoundPage from '../not-found-page/not-found-page';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
+import User from '@components/user/user';
 
 type FilmPageProps = {
   films: Film[];
@@ -44,20 +45,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    className="user-block__image-item"
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <User />
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">

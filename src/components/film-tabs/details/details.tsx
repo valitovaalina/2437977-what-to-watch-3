@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useParams } from 'react-router-dom';
 import { Film } from '@components/types';
 import React from 'react';

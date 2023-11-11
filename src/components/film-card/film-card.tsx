@@ -31,7 +31,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
       setIsPlaying(false);
     }}
     >
-      {!isPlaying ? <img src={film.poster} /> : <VideoPlayer isPlaying={isPlaying} isMuting src={film.videoPreview} poster={film.poster} />}
+      {!isPlaying ? <img src={film.previewImage} /> : <VideoPlayer isPlaying={isPlaying} isMuting src={film.previewVideoLink} poster={film.previewImage} />}
     </Link>
   );
 }

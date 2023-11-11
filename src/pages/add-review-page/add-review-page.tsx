@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
 import { Film } from '@components/types';
@@ -65,7 +68,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
         <div className="film-card__poster film-card__poster--small">
           <img
             className="film-card__poster--image-item"
-            src={currentFilm?.poster}
+            src={currentFilm?.previewImage}
             alt={`${currentFilm?.name} poster`}
           />
         </div>

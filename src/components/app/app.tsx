@@ -9,11 +9,21 @@ import PlayerPage from '@pages/player-page/player-page';
 import NotFoundPage from '@pages/not-found-page/not-found-page';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import PrivateRoute from '../private-route/private-route';
-import { films } from '@mocks/films';
+import Loader from '../loader/loader';
+import { useAppSelector } from '../hooks/hooks';
 
 type AppProps = MainPageProps;
 
 function App(props: AppProps): JSX.Element {
+  const films = useAppSelector((state) => state.sortedFilmList);
+  const isLoading = useAppSelector((state) => state.dataIsLoading);
+
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -32,21 +42,21 @@ function App(props: AppProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MyListPage {...props} films={films}/>
+                <MyListPage {...props} films={films} />
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage {...props} films={films}/>}
+            element={<FilmPage {...props} films={films} />}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<AddReviewPage {...props} films={films}/>}
+            element={<AddReviewPage {...props} films={films} />}
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage {...props} films={films}/>}
+            element={<PlayerPage {...props} films={films} />}
           />
           <Route
             path="*"

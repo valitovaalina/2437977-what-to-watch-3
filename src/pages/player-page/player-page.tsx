@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
 import './player-page.css';
 import { Link, useParams } from 'react-router-dom';

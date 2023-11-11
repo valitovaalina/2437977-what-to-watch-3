@@ -1,34 +1,53 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { films } from '@mocks/films';
-import { changeGenre, getGenreFilms, setFilmCardCount } from './actions';
-import { Genre } from '@components/consts';
+import { changeGenre, fillFilms, setAuthorizationStatus, setDataIsLoading, setError, setFilmCardCount } from './actions';
+import { AuthorizationStatus, Genre } from '@components/consts';
 import { visibleFilmCardCount } from '@components/consts';
+import { Film } from '@components/types';
 
-const initialState = {
+type InitialState = {
+  genre: Genre;
+  filmList: Film[];
+  sortedFilmList: Film[];
+  filmCardCount: number;
+  dataIsLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  error: string | null;
+}
+
+const initialState: InitialState = {
   genre: Genre.All,
-  filmList: films,
-  filmCardCount: 8
+  filmList: [],
+  sortedFilmList: [],
+  filmCardCount: 8,
+  dataIsLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
-    })
-    .addCase(getGenreFilms, (state) => {
-      switch (state.genre) {
-        case Genre.All:
-          state.filmList = films;
-          break;
-        default:
-          state.filmList = films.filter((film) => film.genre === state.genre);
-          break;
-      }
-      state.filmCardCount = state.filmList.length;
+      state.sortedFilmList = (state.genre === Genre.All) ? state.filmList : state.filmList.filter((film) => film.genre === state.genre);
+      state.filmCardCount = Math.min(state.sortedFilmList.length, 8);
     })
     .addCase(setFilmCardCount, (state) => {
-      const currentGenreFilms = state.filmList.length;
+      const currentGenreFilms = state.sortedFilmList.length;
       state.filmCardCount = (state.filmCardCount + visibleFilmCardCount > currentGenreFilms) ? currentGenreFilms : state.filmCardCount + visibleFilmCardCount;
+    })
+    .addCase(fillFilms, (state, action) => {
+      state.filmList = action.payload;
+      state.sortedFilmList = action.payload;
+      state.filmCardCount = Math.min(state.filmList.length, 8);
+    })
+    .addCase(setDataIsLoading, (state, action) => {
+      state.dataIsLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 

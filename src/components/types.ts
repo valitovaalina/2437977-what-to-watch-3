@@ -6,14 +6,14 @@ export type Film = {
   name: string;
   genre: Genre;
   released: number;
-  poster: string;
+  previewImage: string;
   rating: number;
   description: string;
   director: string;
   starring: string[];
   background: string;
   runTime: string;
-  videoPreview: string;
+  previewVideoLink: string;
 }
 
 export type Review = {

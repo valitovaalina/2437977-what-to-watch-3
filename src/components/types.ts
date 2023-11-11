@@ -25,6 +25,19 @@ export type Review = {
   filmId?: number;
 }
 
+export type AuthData = {
+  email: string;
+  password: string;
+};
+
+export type UserData = {
+  avatarUrl: string;
+  email: string;
+  id: number;
+  name: string;
+  token: string;
+};
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

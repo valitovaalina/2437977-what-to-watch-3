@@ -1,8 +1,40 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Helmet } from 'react-helmet-async';
-import { AppRoute } from '@components/consts';
-import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '@components/consts';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
+import { FormEvent, useRef } from 'react';
+import { AuthData } from '@components/types';
+import { logIn } from '../../store/api-actions';
 
 function SignInPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { authorizationStatus } = useAppSelector((state) => state);
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Root);
+  }
+
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(logIn(authData));
+  };
+
+  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (emailRef.current !== null && passwordRef.current !== null) {
+      onSubmit({
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
   return (
     <div className="user-page">
       <Helmet>
@@ -14,7 +46,7 @@ function SignInPage(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={submitHandler}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -23,6 +55,7 @@ function SignInPage(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                ref={emailRef}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -38,6 +71,7 @@ function SignInPage(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                ref={passwordRef}
               />
               <label
                 className="sign-in__label visually-hidden"

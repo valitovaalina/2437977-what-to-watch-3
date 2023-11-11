@@ -1,3 +1,7 @@
+export const TIMEOUT_SHOW_ERROR = 2000;
+export const visibleFilmCardCount = 8;
+export const hoverFilmCardTime = 1000;
+
 export const Setting = {
   filmCardTitle: 'The Grand Budapest Hotel',
   filmCardGenre: 'Drama',
@@ -19,8 +23,6 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const hoverFilmCardTime = 1000;
-
 export enum Genre {
   All = 'All Genres',
   Comedy = 'Comedy',
@@ -34,10 +36,9 @@ export enum Genre {
   Thriller = 'Thriller'
 }
 
-export const visibleFilmCardCount = 8;
-
 export enum APIRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
 }
+

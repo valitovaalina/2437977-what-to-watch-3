@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, fillFilms, setAuthorizationStatus, setDataIsLoading, setError, setFilmCardCount } from './actions';
+import { changeGenre, fillFilms, saveUser, setAuthorizationStatus, setDataIsLoading, setError, setFilmCardCount } from './actions';
 import { AuthorizationStatus, Genre } from '@components/consts';
 import { visibleFilmCardCount } from '@components/consts';
-import { Film } from '@components/types';
+import { Film, UserData } from '@components/types';
 
 type InitialState = {
   genre: Genre;
@@ -12,6 +12,7 @@ type InitialState = {
   dataIsLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
+  userData: UserData | null;
 }
 
 const initialState: InitialState = {
@@ -22,10 +23,14 @@ const initialState: InitialState = {
   dataIsLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(saveUser, (state, action) => {
+      state.userData = action.payload;
+    })
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
       state.sortedFilmList = (state.genre === Genre.All) ? state.filmList : state.filmList.filter((film) => film.genre === state.genre);

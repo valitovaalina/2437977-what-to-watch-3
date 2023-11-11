@@ -27,7 +27,7 @@
         "*",
         "src/*"
       ],
-      "types/*": [
+      "@types/*": [
         "./src/types/*"
       ],
       "@components/*": [
@@ -39,10 +39,10 @@
       "@mocks/*": [
         "./src/mocks/*"
       ],
-      "store/*": [
+      "@store/*": [
         "./src/store/*"
       ],
-      "services/*": [
+      "@services/*": [
         "./src/services/*"
       ],
     },

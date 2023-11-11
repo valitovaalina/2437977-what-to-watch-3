@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import GenreList from '@components/genre-list/genre-list';
 import { useAppSelector } from '@components/hooks/hooks';
 import ShowMoreButton from '@components/show-more-button/show-more-button';
+import User from '@components/user/user';
 
 export type MainPageProps = {
   filmCardTitle: string;
@@ -38,20 +39,7 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
               <span className="logo__letter logo__letter--3">W</span>
             </Link>
           </div>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  className="user-block__image-item"
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <User />
         </header>
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -94,7 +82,7 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
           <div className="catalog__films-list">
             <FilmList films={filmsGenre.slice(0, filmCardCount)} />
           </div>
-          {filmCardCount !== filmsGenre.length && <ShowMoreButton/>}
+          {filmCardCount !== filmsGenre.length && <ShowMoreButton />}
         </section>
         <footer className="page-footer">
           <div className="logo">

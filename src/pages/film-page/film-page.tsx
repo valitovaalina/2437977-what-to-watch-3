@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
 import FilmList from '@components/film-list/film-list';

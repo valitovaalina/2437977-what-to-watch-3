@@ -2,24 +2,26 @@ import { store } from '../store/index.js';
 import { Genre } from './consts.js';
 
 export type Film = {
-  id: number;
+  id: string;
   name: string;
   genre: Genre;
   released: number;
   previewImage: string;
+  posterImage: string;
+  backgroundImage: string;
+  scoresCount: number;
   rating: number;
   description: string;
   director: string;
   starring: string[];
-  background: string;
   runTime: string;
   previewVideoLink: string;
 }
 
 export type Review = {
   id: number;
-  text: string;
-  author: string;
+  comment: string;
+  user: string;
   date: string;
   rating: number;
   filmId?: number;
@@ -37,6 +39,12 @@ export type UserData = {
   name: string;
   token: string;
 };
+
+export type UserReview = {
+  filmId: string;
+  rating: number;
+  comment: string;
+}
 
 export type State = ReturnType<typeof store.getState>;
 

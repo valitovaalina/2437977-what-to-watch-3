@@ -1,169 +1,78 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { Review } from '../types';
-import { useAppSelector } from '../hooks/hooks';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { postReview } from '@store/api-actions';
+import NotFoundPage from '@pages/not-found-page/not-found-page.tsx';
 
-function AddReviewForm(): JSX.Element {
-  const films = useAppSelector((state) => state.filmList);
-  const film = films[0];
+function AddReviewForm() {
+  const commentRef = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
+  const film = useAppSelector((state) => state.film);
   const [filmRating, setFilmRating] = useState(0);
-  const textArea = useRef<HTMLTextAreaElement>(null);
-  const [, setReviewForm] = useState<Review>({
-    id: 0,
-    text: '',
-    author: '',
-    date: '',
-    rating: 0,
-    filmId: film.id,
-  });
-
-  const changeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    setFilmRating(Number(evt.target.value));
+  const dispatch = useAppDispatch();
+  if (!film) {
+    return <NotFoundPage />;
+  }
+  const doOnSubmit = (rating: number, comment: string) => {
+    dispatch(postReview({ filmId: film.id, rating, comment }));
+    navigate(`/films/${film.id}`);
   };
-
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (filmRating && textArea.current?.value) {
-      const review: Review = {
-        id: film.id,
-        text: textArea.current.value,
-        author: 'person',
-        date: '2023-10-22',
-        rating: filmRating,
-        filmId: film.id,
-      };
-      setReviewForm(review);
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (filmRating && commentRef.current?.value) {
+      doOnSubmit(filmRating, commentRef.current.value);
     }
   };
-
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setFilmRating(Number(evt.target.value));
+  };
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={submitHandler}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
         <div className="rating">
           <div className="rating__stars">
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-10"
-              type="radio"
-              name="rating"
-              defaultValue={10}
-            />
-            <label className="rating__label" htmlFor="star-10">
-              Rating 10
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-9"
-              type="radio"
-              name="rating"
-              defaultValue={9}
-            />
-            <label className="rating__label" htmlFor="star-9">
-              Rating 9
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-8"
-              type="radio"
-              name="rating"
-              defaultValue={8}
-              defaultChecked
-            />
-            <label className="rating__label" htmlFor="star-8">
-              Rating 8
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-7"
-              type="radio"
-              name="rating"
-              defaultValue={7}
-            />
-            <label className="rating__label" htmlFor="star-7">
-              Rating 7
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-6"
-              type="radio"
-              name="rating"
-              defaultValue={6}
-            />
-            <label className="rating__label" htmlFor="star-6">
-              Rating 6
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-5"
-              type="radio"
-              name="rating"
-              defaultValue={5}
-            />
-            <label className="rating__label" htmlFor="star-5">
-              Rating 5
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-4"
-              type="radio"
-              name="rating"
-              defaultValue={4}
-            />
-            <label className="rating__label" htmlFor="star-4">
-              Rating 4
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-3"
-              type="radio"
-              name="rating"
-              defaultValue={3}
-            />
-            <label className="rating__label" htmlFor="star-3">
-              Rating 3
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-2"
-              type="radio"
-              name="rating"
-              defaultValue={2}
-            />
-            <label className="rating__label" htmlFor="star-2">
-              Rating 2
-            </label>
-            <input
-              onChange={changeHandler}
-              className="rating__input"
-              id="star-1"
-              type="radio"
-              name="rating"
-              defaultValue={1}
-            />
-            <label className="rating__label" htmlFor="star-1">
-              Rating 1
-            </label>
+            {Array.from({ length: 10 }, (_, i) => i + 1)
+              .reverse()
+              .map((number) => (
+                <Fragment key={number}>
+                  <input
+                    key={`star-${number}`}
+                    onChange={handleInputChange}
+                    className="rating__input"
+                    id={`star-${number}`}
+                    type="radio"
+                    name="rating"
+                    value={`${number}`}
+                  />
+                  <label
+                    className="rating__label"
+                    htmlFor={`star-${number}`}
+                  >
+                    Rating ${number}
+                  </label>
+                </Fragment>))}
           </div>
         </div>
+
         <div className="add-review__text">
           <textarea
-            ref={textArea}
+            ref={commentRef}
             className="add-review__textarea"
             name="review-text"
             id="review-text"
             placeholder="Review text"
-            defaultValue=''
-          />
+            minLength={50}
+            maxLength={400}
+          >
+          </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={!filmRating || !commentRef.current?.value || commentRef.current?.value.length < 50 || commentRef.current?.value.length > 400}
+            >
               Post
             </button>
           </div>

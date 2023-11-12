@@ -1,22 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
-import { Film } from '@components/types';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '@components/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';
 import User from '@components/user/user';
+import { useAppSelector } from '@components/hooks/hooks';
 
-export type AddReviewPageProps = {
-  films: Film[];
-}
-
-function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
-  const { id } = useParams();
-  const currentFilmId = Number(id);
-  const currentFilm = films.at(currentFilmId);
+function AddReviewPage(): JSX.Element {
+  const currentFilm = useAppSelector((state) => state.film);
 
   return (
     <section className="film-card film-card--full">
@@ -26,7 +18,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src={currentFilm?.background}
+            src={currentFilm?.backgroundImage}
             alt={currentFilm?.name}
           />
         </div>
@@ -56,7 +48,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
         <div className="film-card__poster film-card__poster--small">
           <img
             className="film-card__poster--image-item"
-            src={currentFilm?.previewImage}
+            src={currentFilm?.posterImage}
             alt={`${currentFilm?.name} poster`}
           />
         </div>

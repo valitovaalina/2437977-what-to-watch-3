@@ -46,11 +46,11 @@ function App(props: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage {...props} films={films} />}
+            element={<FilmPage />}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<AddReviewPage {...props} films={films} />}
+            element={<AddReviewPage />}
           />
           <Route
             path={AppRoute.Player}

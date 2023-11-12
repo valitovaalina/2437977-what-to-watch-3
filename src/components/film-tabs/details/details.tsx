@@ -1,17 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useParams } from 'react-router-dom';
-import { Film } from '@components/types';
 import React from 'react';
+import { useAppSelector } from '@components/hooks/hooks';
 
-type DetailsProps = {
-  films: Film[];
-}
-
-function Details({ films }: DetailsProps): JSX.Element {
-  const { id } = useParams();
-  const currentFilmId = Number(id);
-  const currentFilm = films.at(currentFilmId);
+function Details(): JSX.Element {
+  const currentFilm = useAppSelector((state) => state.film);
 
   return (
     <div className="film-card__text film-card__row">

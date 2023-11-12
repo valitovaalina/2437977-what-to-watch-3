@@ -1,28 +1,38 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import FilmList from '@components/film-list/film-list';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute } from '@components/consts';
-import { Film } from '@components/types';
+import { AppRoute, AuthorizationStatus } from '@components/consts';
 import NotFoundPage from '../not-found-page/not-found-page';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';
+import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
+import { setDataIsLoading } from '@store/actions';
+import { fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '@store/api-actions';
 
-type FilmPageProps = {
-  films: Film[];
-}
-
-function FilmPage({ films }: FilmPageProps): JSX.Element {
+function FilmPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilmId = Number(id);
-  const currentFilm = films.at(currentFilmId);
-  if (!id) {
+  const dispatch = useAppDispatch();
+  const currentFilm = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  useEffect(() => {
+    dispatch(setDataIsLoading(true));
+    dispatch(fetchFilmByID(id));
+    dispatch(fetchSimilarByID(id));
+    dispatch(fetchReviewsByID(id));
+    dispatch(setDataIsLoading(false));
+  }, [id, dispatch]);
+
+  if (!currentFilm) {
     return <NotFoundPage />;
   }
+
   return (
     <Fragment>
       <Helmet>
@@ -32,7 +42,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={currentFilm?.background}
+              src={currentFilm?.backgroundImage}
               alt={currentFilm?.name}
             />
           </div>
@@ -68,9 +78,11 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${currentFilm?.id}/review`} className="btn film-card__button">
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -80,18 +92,18 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img
                 className="film-card__poster--image-item"
-                src={currentFilm?.previewImage}
+                src={currentFilm?.posterImage}
                 alt={`${currentFilm?.name} poster`}
               />
             </div>
-            <FilmTabs films={films}/>
+            <FilmTabs />
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={films.slice(1, 5)} />
+          <FilmList films={similarFilms} />
         </section>
         <footer className="page-footer">
           <div className="logo">

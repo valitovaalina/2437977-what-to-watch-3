@@ -23,9 +23,9 @@ function FilmPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(setDataIsLoading(true));
-    dispatch(fetchFilmByID(id));
-    dispatch(fetchSimilarByID(id));
-    dispatch(fetchReviewsByID(id));
+    dispatch(fetchFilmByID(String(id)));
+    dispatch(fetchSimilarByID(String(id)));
+    dispatch(fetchReviewsByID(String(id)));
     dispatch(setDataIsLoading(false));
   }, [id, dispatch]);
 

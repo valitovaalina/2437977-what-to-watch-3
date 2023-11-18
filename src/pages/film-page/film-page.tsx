@@ -2,30 +2,29 @@ import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
 import FilmList from '@components/film-list/film-list';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, Reducer } from '@components/consts';
-import NotFoundPage from '../not-found-page/not-found-page';
+import { AuthorizationStatus } from '@components/consts';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '@store/api-actions';
+import Footer from '@components/footer/footer';
+import Logo from '@components/logo/logo';
+import { getFilm, getSimilarFilms } from '@store/film-reducer/film-selectors';
+import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function FilmPage(): JSX.Element {
   const id = String(useParams().id);
   const dispatch = useAppDispatch();
-  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
-  const similarFilms = useAppSelector((state) => state[Reducer.FILM_REDUCER].similarFilms);
-  const authorizationStatus = useAppSelector((state) => state[Reducer.USER_REDUCER].authorizationStatus);
+  const currentFilm = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
     dispatch(fetchFilmByID(id));
     dispatch(fetchSimilarByID(id));
     dispatch(fetchReviewsByID(id));
   }, [id, dispatch]);
-
-  if (!currentFilm) {
-    return <NotFoundPage />;
-  }
 
   return (
     <Fragment>
@@ -36,31 +35,25 @@ function FilmPage(): JSX.Element {
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={currentFilm.backgroundImage}
-              alt={currentFilm.name}
+              src={currentFilm?.backgroundImage}
+              alt={currentFilm?.name}
             />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoute.Root} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo />
             <User />
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{currentFilm.name}</h2>
+              <h2 className="film-card__title">{currentFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{currentFilm.genre}</span>
-                <span className="film-card__year">{currentFilm.released}</span>
+                <span className="film-card__genre">{currentFilm?.genre}</span>
+                <span className="film-card__year">{currentFilm?.released}</span>
               </p>
               <div className="film-card__buttons">
                 <Link
-                  to={`/player/${currentFilm.id}`}
+                  to={currentFilm?.id && `/player/${currentFilm.id}`}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -80,7 +73,7 @@ function FilmPage(): JSX.Element {
                   <span className="film-card__count">9</span>
                 </ Link>
                 {authorizationStatus === AuthorizationStatus.Auth && (
-                  <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">
+                  <Link to={currentFilm?.id && `/films/${currentFilm.id}/review`} className="btn film-card__button">
                     Add review
                   </ Link>
                 )}
@@ -93,8 +86,8 @@ function FilmPage(): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img
                 className="film-card__poster--image-item"
-                src={currentFilm.posterImage}
-                alt={`${currentFilm.name} poster`}
+                src={currentFilm?.posterImage}
+                alt={currentFilm?.id && `${currentFilm.name} poster`}
               />
             </div>
             <FilmTabs />
@@ -106,18 +99,7 @@ function FilmPage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
           <FilmList films={similarFilms} />
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoute.Root} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </Fragment>
   );

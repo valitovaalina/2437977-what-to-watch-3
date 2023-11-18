@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { useAppSelector } from '@components/hooks/hooks';
-import { Reducer } from '@components/consts';
 import { getRating } from '@components/extra-functions/get-rating-function';
+import { Film } from '@components/types';
 
-function Overview(): JSX.Element {
-  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
+type OverviewProps = {
+  currentFilm: Film | null;
+}
 
+function Overview({ currentFilm }: OverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">

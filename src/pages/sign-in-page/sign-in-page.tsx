@@ -1,11 +1,13 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 
 import { AppRoute, AuthorizationStatus } from '@components/consts';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { AuthData } from '@components/types';
 import { logIn } from '@store/api-actions';
+import Footer from '@components/footer/footer';
+import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function SignInPage(): JSX.Element {
   const [emailField, setEmailField] = useState<string>('');
@@ -16,7 +18,7 @@ function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector((state) => state.USER_REDUCER.authorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(logIn(authData));
@@ -92,18 +94,7 @@ function SignInPage(): JSX.Element {
           </div>
         </form>
       </div>
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

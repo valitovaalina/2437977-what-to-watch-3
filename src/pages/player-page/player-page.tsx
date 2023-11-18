@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import './player-page.css';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { Reducer } from '@components/consts';
 import { fetchFilmByID } from '@store/api-actions';
+import { getFilm } from '@store/film-reducer/film-selectors';
 
 function Player(): JSX.Element {
   const id = String(useParams().id);
-  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
+  const currentFilm = useAppSelector(getFilm);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPause, setIsPause] = useState(false);

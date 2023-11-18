@@ -3,17 +3,19 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import FilmList from '@components/film-list/film-list';
-import { AppRoute, Reducer } from '@components/consts';
 import './main-page.css';
 import GenreList from '@components/genre-list/genre-list';
 import { useAppSelector } from '@components/hooks/hooks';
 import ShowMoreButton from '@components/show-more-button/show-more-button';
 import User from '@components/user/user';
+import Footer from '@components/footer/footer';
+import Logo from '@components/logo/logo';
+import { getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
 
 function MainPage(): JSX.Element {
-  const promo = useAppSelector((state) => state[Reducer.MAIN_REDUCER].promo);
-  const filmsGenre = useAppSelector((state) => state[Reducer.MAIN_REDUCER].sortedFilmList);
-  const filmCardCount = useAppSelector((state) => state[Reducer.MAIN_REDUCER].filmCardCount);
+  const promo = useAppSelector(getPromo);
+  const filmsGenre = useAppSelector(getGenreFilmList);
+  const filmCardCount = useAppSelector(getFilmCardCount);
   return (
     <Fragment>
       <Helmet>
@@ -28,13 +30,7 @@ function MainPage(): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <div className="logo">
-            <Link to={AppRoute.Root} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+          <Logo />
           <User />
         </header>
         <div className="film-card__wrap">
@@ -88,18 +84,7 @@ function MainPage(): JSX.Element {
           </div>
           {filmCardCount !== filmsGenre.length && <ShowMoreButton />}
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </Fragment>
   );

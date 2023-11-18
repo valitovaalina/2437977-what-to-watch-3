@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
-import NotFoundPage from '@pages/not-found-page/not-found-page.tsx';
+import RatingItem from '../rating-item/rating-item';
 
 function AddReviewForm() {
   const id = String(useParams().id);
@@ -11,22 +11,22 @@ function AddReviewForm() {
   const [filmRating, setFilmRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
   const dispatch = useAppDispatch();
-  if (!id) {
-    return <NotFoundPage />;
-  }
+
+  const handleInputChange = useCallback((evt: ChangeEvent<HTMLInputElement>) =>
+    setFilmRating(Number(evt.target.value)), []);
+
   const doOnSubmit = (rating: number, comment: string) => {
     dispatch(postReview({ filmId: id, rating, comment }));
     navigate(`/films/${id}`);
   };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (filmRating && reviewContent) {
       doOnSubmit(filmRating, reviewContent);
     }
   };
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setFilmRating(Number(evt.target.value));
-  };
+
   return (
     <div className="add-review">
       <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
@@ -34,24 +34,7 @@ function AddReviewForm() {
           <div className="rating__stars">
             {Array.from({ length: 10 }, (_, i) => i + 1)
               .reverse()
-              .map((number) => (
-                <Fragment key={number}>
-                  <input
-                    key={`star-${number}`}
-                    onChange={handleInputChange}
-                    className="rating__input"
-                    id={`star-${number}`}
-                    type="radio"
-                    name="rating"
-                    value={`${number}`}
-                  />
-                  <label
-                    className="rating__label"
-                    htmlFor={`star-${number}`}
-                  >
-                    Rating ${number}
-                  </label>
-                </Fragment>))}
+              .map((number) => <RatingItem key={number} number={number} handleInputChange={handleInputChange} />)}
           </div>
         </div>
 

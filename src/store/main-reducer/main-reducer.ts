@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { AppState } from '@components/types';
-import { changeGenre, setError } from './actions';
+import { changeGenre, setError } from '../actions';
 import { fetchFilms, fetchPromoFilm } from '@store/api-actions';
 import { Genre } from '@components/consts';
 

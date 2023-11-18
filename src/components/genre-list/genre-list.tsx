@@ -1,26 +1,17 @@
-import { changeGenre } from '../../store/actions.ts';
-import { Genre, Reducer } from '../consts.ts';
-import { useAppSelector, useAppDispatch } from '../hooks/hooks.ts';
+import { getCurrentGenre, getFilmList } from '@store/main-reducer/main-selectors.ts';
+import { Genre } from '../consts.ts';
+import { getGenres } from '../extra-functions/get-genres.ts';
+import GenreListItem from '../genre-list-item/genre-list-item.tsx';
+import { useAppSelector } from '../hooks/hooks.ts';
 
 function GenreList(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const currentGenre = useAppSelector((state) => state[Reducer.MAIN_REDUCER].genre);
-  const films = useAppSelector((state) => state[Reducer.MAIN_REDUCER].filmList);
-  const genres: Genre[] = [Genre.All, ...new Set(films.map((x) => x.genre))];
+  const currentGenre = useAppSelector(getCurrentGenre);
+  const films = useAppSelector(getFilmList);
+  const genres: Genre[] = getGenres(films);
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre) => (
-        <li key={genre} className={`catalog__genres-item ${genre === currentGenre ? 'catalog__genres-item--active' : ''}`}>
-          <button className="catalog__genres-link"
-            onClick={() => {
-              dispatch(changeGenre(genre));
-            }}
-            style={{background: 'transparent', border: 'none'}}
-          >
-            {genre}
-          </button>
-        </li>))}
+      {genres.map((genre) => <GenreListItem key={genre} genre={genre} currentGenre={currentGenre} />)}
     </ul>
   );
 }

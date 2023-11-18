@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import { mainReducer } from './main-reducer';
-import { filmReducer } from './film-reducer';
-import { userReducer } from './user-reducer';
+import { mainReducer } from './main-reducer/main-reducer';
+import { filmReducer } from './film-reducer/film-reducer';
+import { userReducer } from './user-reducer/user-reducer';
 import { Reducer } from '@components/consts';
 
 const reducer = combineReducers({

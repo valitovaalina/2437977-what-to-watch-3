@@ -1,23 +1,13 @@
 import { useState } from 'react';
-import Overview from '@components/film-tabs/overview/overview';
-import Details from '@components/film-tabs/details/details';
-import Reviews from '@components/film-tabs/reviews/reviews';
+
 import { useAppSelector } from '../hooks/hooks';
+import { getTabs } from './get-tabs';
+import { getFilm, getReviews } from '@store/film-reducer/film-selectors';
 
 function FilmTabs() {
   const [tab, setTab] = useState('Overview');
-  const reviews = useAppSelector((state) => state.reviews);
-  const getTab = (tabFilm: string) => {
-    if (tabFilm === 'Overview') {
-      return <Overview />;
-    }
-    if (tabFilm === 'Details') {
-      return <Details />;
-    }
-    if (tabFilm === 'Reviews') {
-      return <Reviews reviews={reviews} />;
-    }
-  };
+  const reviews = useAppSelector(getReviews);
+  const currentFilm = useAppSelector(getFilm);
 
   return (
     <div className="film-card__desc">
@@ -34,7 +24,7 @@ function FilmTabs() {
           </li>
         </ul>
       </nav>
-      {getTab(tab)}
+      {getTabs(tab, currentFilm, reviews)}
     </div>
   );
 }

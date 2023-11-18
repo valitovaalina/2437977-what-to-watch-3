@@ -1,33 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
-import NotFoundPage from '@pages/not-found-page/not-found-page.tsx';
+import RatingItem from '../rating-item/rating-item';
 
 function AddReviewForm() {
-  const commentRef = useRef<HTMLTextAreaElement>(null);
+  const id = String(useParams().id);
   const navigate = useNavigate();
-  const film = useAppSelector((state) => state.film);
   const [filmRating, setFilmRating] = useState(0);
+  const [reviewContent, setReviewContent] = useState('');
   const dispatch = useAppDispatch();
-  if (!film) {
-    return <NotFoundPage />;
-  }
+
+  const handleInputChange = useCallback((evt: ChangeEvent<HTMLInputElement>) =>
+    setFilmRating(Number(evt.target.value)), []);
+
   const doOnSubmit = (rating: number, comment: string) => {
-    dispatch(postReview({ filmId: film.id, rating, comment }));
-    navigate(`/films/${film.id}`);
+    dispatch(postReview({ filmId: id, rating, comment }));
+    navigate(`/films/${id}`);
   };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (filmRating && commentRef.current?.value) {
-      doOnSubmit(filmRating, commentRef.current.value);
+    if (filmRating && reviewContent) {
+      doOnSubmit(filmRating, reviewContent);
     }
   };
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setFilmRating(Number(evt.target.value));
-  };
+
   return (
     <div className="add-review">
       <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
@@ -35,30 +34,16 @@ function AddReviewForm() {
           <div className="rating__stars">
             {Array.from({ length: 10 }, (_, i) => i + 1)
               .reverse()
-              .map((number) => (
-                <Fragment key={number}>
-                  <input
-                    key={`star-${number}`}
-                    onChange={handleInputChange}
-                    className="rating__input"
-                    id={`star-${number}`}
-                    type="radio"
-                    name="rating"
-                    value={`${number}`}
-                  />
-                  <label
-                    className="rating__label"
-                    htmlFor={`star-${number}`}
-                  >
-                    Rating ${number}
-                  </label>
-                </Fragment>))}
+              .map((number) => <RatingItem key={number} number={number} handleInputChange={handleInputChange} />)}
           </div>
         </div>
 
         <div className="add-review__text">
           <textarea
-            ref={commentRef}
+            value={reviewContent}
+            onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
+              setReviewContent(evt.target.value);
+            }}
             className="add-review__textarea"
             name="review-text"
             id="review-text"
@@ -71,7 +56,7 @@ function AddReviewForm() {
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!filmRating || !commentRef.current?.value || commentRef.current?.value.length < 50 || commentRef.current?.value.length > 400}
+              disabled={!filmRating || !reviewContent || reviewContent.length < 50 || reviewContent.length > 400}
             >
               Post
             </button>

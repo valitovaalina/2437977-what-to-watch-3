@@ -1,5 +1,5 @@
 import { store } from '../store/index.js';
-import { Genre } from './consts.js';
+import { AuthorizationStatus, Genre } from './consts.ts';
 
 export type Film = {
   id: string;
@@ -16,6 +16,7 @@ export type Film = {
   starring: string[];
   runTime: string;
   previewVideoLink: string;
+  videoLink: string;
 }
 
 export type Review = {
@@ -39,6 +40,27 @@ export type UserData = {
   name: string;
   token: string;
 };
+
+export type AppState = {
+  genre: Genre;
+  filmList: Film[];
+  sortedFilmList: Film[];
+  filmCardCount: number;
+  dataIsLoading: boolean;
+  error: string | null;
+  promo: Film | null;
+}
+
+export type UserState = {
+  authorizationStatus: AuthorizationStatus;
+  avatar: string | null;
+}
+
+export type FilmState = {
+  film: Film | null;
+  reviews: Review[];
+  similarFilms: Film[];
+}
 
 export type UserReview = {
   filmId: string;

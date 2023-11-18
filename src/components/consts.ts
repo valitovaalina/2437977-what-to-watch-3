@@ -42,5 +42,12 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   SimilarFilms = '/similar',
+  Promo = '/promo',
+}
+
+export enum Reducer {
+  USER_REDUCER = 'USER_REDUCER',
+  MAIN_REDUCER = 'MAIN_REDUCER',
+  FILM_REDUCER = 'FILM_REDUCER',
 }
 

@@ -1,23 +1,26 @@
 import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
-import FilmList from '@components/film-list/film-list';
-import { AppRoute } from '@components/consts';
-import './main-page.css';
 import { Link } from 'react-router-dom';
+
+import FilmList from '@components/film-list/film-list';
+import './main-page.css';
 import GenreList from '@components/genre-list/genre-list';
 import { useAppSelector } from '@components/hooks/hooks';
 import ShowMoreButton from '@components/show-more-button/show-more-button';
 import User from '@components/user/user';
+import Footer from '@components/footer/footer';
+import Logo from '@components/logo/logo';
+import { getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
 
-export type MainPageProps = {
-  filmCardTitle: string;
-  filmCardGenre: string;
-  filmCardYear: number;
-}
+function MainPage() {
+  const promo = useAppSelector(getPromo);
+  const filmsGenre = useAppSelector(getGenreFilmList);
+  const filmCardCount = useAppSelector(getFilmCardCount);
 
-function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps): JSX.Element {
-  const filmsGenre = useAppSelector((state) => state.sortedFilmList);
-  const filmCardCount = useAppSelector((state) => state.filmCardCount);
+  if (!promo) {
+    return null;
+  }
+
   return (
     <Fragment>
       <Helmet>
@@ -26,19 +29,13 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={promo?.backgroundImage}
+            alt={promo?.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <div className="logo">
-            <Link to={AppRoute.Root} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+          <Logo />
           <User />
         </header>
         <div className="film-card__wrap">
@@ -46,30 +43,38 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
             <div className="film-card__poster">
               <img
                 className="film-card__poster--image-item"
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={promo?.posterImage}
+                alt={promo?.name}
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmCardTitle}</h2>
+              <h2 className="film-card__title">{promo?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmCardGenre}</span>
-                <span className="film-card__year">{filmCardYear}</span>
+                <span className="film-card__genre">{promo?.genre}</span>
+                <span className="film-card__year">{promo?.released}</span>
               </p>
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link
+                  to={`/player/${promo?.id}`}
+                  className="btn btn--play film-card__button"
+                  type="button"
+                >
                   <svg className="btn--play__icon-item" viewBox="0 0 19 19">
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
+                </Link>
+                <Link
+                  to={`/player/${promo?.id}`}
+                  className="btn btn--play film-card__button"
+                  type="button"
+                >
                   <svg className="btn--list__icon-item" viewBox="0 0 19 20">
                     <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -84,18 +89,7 @@ function MainPage({ filmCardTitle, filmCardGenre, filmCardYear }: MainPageProps)
           </div>
           {filmCardCount !== filmsGenre.length && <ShowMoreButton />}
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </Fragment>
   );

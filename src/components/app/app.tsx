@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import MainPage, { MainPageProps } from '@pages/main-page/main-page';
+
+import MainPage from '@pages/main-page/main-page';
 import SignInPage from '@pages/sign-in-page/sign-in-page';
 import MyListPage from '@pages/my-list-page/my-list-page';
 import FilmPage from '@pages/film-page/film-page';
@@ -11,12 +12,11 @@ import { AppRoute } from '../consts';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import { useAppSelector } from '../hooks/hooks';
+import { getGenreFilmList, getLoading } from '@store/main-reducer/main-selectors';
 
-type AppProps = MainPageProps;
-
-function App(props: AppProps): JSX.Element {
-  const films = useAppSelector((state) => state.sortedFilmList);
-  const isLoading = useAppSelector((state) => state.dataIsLoading);
+function App(): JSX.Element {
+  const films = useAppSelector(getGenreFilmList);
+  const isLoading = useAppSelector(getLoading);
 
   if (isLoading) {
     return (
@@ -30,7 +30,7 @@ function App(props: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage {...props} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Signin}
@@ -40,7 +40,7 @@ function App(props: AppProps): JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyListPage {...props} films={films} />
+                <MyListPage films={films} />
               </PrivateRoute>
             }
           />
@@ -54,7 +54,7 @@ function App(props: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage {...props} films={films} />}
+            element={<PlayerPage />}
           />
           <Route
             path="*"

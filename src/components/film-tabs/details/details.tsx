@@ -1,9 +1,12 @@
 import React from 'react';
-import { useAppSelector } from '@components/hooks/hooks';
 
-function Details(): JSX.Element {
-  const currentFilm = useAppSelector((state) => state.film);
+import { Film } from '@components/types';
 
+type DetailsProps = {
+  currentFilm: Film | null;
+}
+
+function Details({currentFilm}:DetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">

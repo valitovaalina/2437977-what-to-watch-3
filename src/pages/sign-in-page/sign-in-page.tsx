@@ -1,24 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import { FormEvent, useState } from 'react';
+
 import { AppRoute, AuthorizationStatus } from '@components/consts';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { FormEvent, useRef } from 'react';
 import { AuthData } from '@components/types';
-import { logIn } from '../../store/api-actions';
+import { logIn } from '@store/api-actions';
+import Footer from '@components/footer/footer';
+import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function SignInPage(): JSX.Element {
+  const [emailField, setEmailField] = useState<string>('');
+  const [passwordField, setPasswordField] = useState<string>('');
+  const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
+  const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { authorizationStatus } = useAppSelector((state) => state);
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
-  }
-
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(logIn(authData));
@@ -27,13 +27,17 @@ function SignInPage(): JSX.Element {
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailRef.current !== null && passwordRef.current !== null) {
+    if (emailField !== null && passwordField !== null && rePassword.test(passwordField) && reEmail.test(emailField)) {
       onSubmit({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
+        email: emailField,
+        password: passwordField,
       });
     }
   };
+
+  if (authStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Root);
+  }
 
   return (
     <div className="user-page">
@@ -55,7 +59,8 @@ function SignInPage(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                ref={emailRef}
+                value={emailField}
+                onChange={(event) => setEmailField(event.target.value)}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -71,7 +76,8 @@ function SignInPage(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                ref={passwordRef}
+                value={passwordField}
+                onChange={(event) => setPasswordField(event.target.value)}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -88,18 +94,7 @@ function SignInPage(): JSX.Element {
           </div>
         </form>
       </div>
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

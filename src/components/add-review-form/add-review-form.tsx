@@ -1,28 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
 import NotFoundPage from '@pages/not-found-page/not-found-page.tsx';
 
 function AddReviewForm() {
-  const commentRef = useRef<HTMLTextAreaElement>(null);
+  const id = String(useParams().id);
   const navigate = useNavigate();
-  const film = useAppSelector((state) => state.film);
   const [filmRating, setFilmRating] = useState(0);
+  const [reviewContent, setReviewContent] = useState('');
   const dispatch = useAppDispatch();
-  if (!film) {
+  if (!id) {
     return <NotFoundPage />;
   }
   const doOnSubmit = (rating: number, comment: string) => {
-    dispatch(postReview({ filmId: film.id, rating, comment }));
-    navigate(`/films/${film.id}`);
+    dispatch(postReview({ filmId: id, rating, comment }));
+    navigate(`/films/${id}`);
   };
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (filmRating && commentRef.current?.value) {
-      doOnSubmit(filmRating, commentRef.current.value);
+    if (filmRating && reviewContent) {
+      doOnSubmit(filmRating, reviewContent);
     }
   };
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +57,10 @@ function AddReviewForm() {
 
         <div className="add-review__text">
           <textarea
-            ref={commentRef}
+            value={reviewContent}
+            onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
+              setReviewContent(evt.target.value);
+            }}
             className="add-review__textarea"
             name="review-text"
             id="review-text"
@@ -71,7 +73,7 @@ function AddReviewForm() {
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!filmRating || !commentRef.current?.value || commentRef.current?.value.length < 50 || commentRef.current?.value.length > 400}
+              disabled={!filmRating || !reviewContent || reviewContent.length < 50 || reviewContent.length > 400}
             >
               Post
             </button>

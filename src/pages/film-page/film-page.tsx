@@ -1,32 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
 import FilmList from '@components/film-list/film-list';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '@components/consts';
+import { AppRoute, AuthorizationStatus, Reducer } from '@components/consts';
 import NotFoundPage from '../not-found-page/not-found-page';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { setDataIsLoading } from '@store/actions';
 import { fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '@store/api-actions';
 
 function FilmPage(): JSX.Element {
-  const { id } = useParams();
+  const id = String(useParams().id);
   const dispatch = useAppDispatch();
-  const currentFilm = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
+  const similarFilms = useAppSelector((state) => state[Reducer.FILM_REDUCER].similarFilms);
+  const authorizationStatus = useAppSelector((state) => state[Reducer.USER_REDUCER].authorizationStatus);
 
   useEffect(() => {
-    dispatch(setDataIsLoading(true));
-    dispatch(fetchFilmByID(String(id)));
-    dispatch(fetchSimilarByID(String(id)));
-    dispatch(fetchReviewsByID(String(id)));
-    dispatch(setDataIsLoading(false));
+    dispatch(fetchFilmByID(id));
+    dispatch(fetchSimilarByID(id));
+    dispatch(fetchReviewsByID(id));
   }, [id, dispatch]);
 
   if (!currentFilm) {
@@ -42,8 +36,8 @@ function FilmPage(): JSX.Element {
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={currentFilm?.backgroundImage}
-              alt={currentFilm?.name}
+              src={currentFilm.backgroundImage}
+              alt={currentFilm.name}
             />
           </div>
           <h1 className="visually-hidden">WTW</h1>
@@ -59,29 +53,36 @@ function FilmPage(): JSX.Element {
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{currentFilm?.name}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{currentFilm?.genre}</span>
-                <span className="film-card__year">{currentFilm?.released}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link
+                  to={`/player/${currentFilm.id}`}
+                  className="btn btn--play film-card__button"
+                  type="button"
+                >
                   <svg viewBox="0 0 19 19" className="btn--play__icon-item">
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
+                </ Link>
+                <Link to={'/mylist'}
+                  className="btn btn--list film-card__button"
+                  type="button"
+                >
                   <svg viewBox="0 0 19 20" className="btn--list__icon-item">
                     <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
-                </button>
+                </ Link>
                 {authorizationStatus === AuthorizationStatus.Auth && (
                   <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">
                     Add review
-                  </Link>
+                  </ Link>
                 )}
               </div>
             </div>
@@ -92,8 +93,8 @@ function FilmPage(): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img
                 className="film-card__poster--image-item"
-                src={currentFilm?.posterImage}
-                alt={`${currentFilm?.name} poster`}
+                src={currentFilm.posterImage}
+                alt={`${currentFilm.name} poster`}
               />
             </div>
             <FilmTabs />

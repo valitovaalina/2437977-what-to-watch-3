@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import './film-card.css';
 import { Film } from '../types';
-import { Link } from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import { hoverFilmCardTime } from '../consts';
 

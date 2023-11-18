@@ -1,12 +1,14 @@
 import { useState } from 'react';
+
 import Overview from '@components/film-tabs/overview/overview';
 import Details from '@components/film-tabs/details/details';
 import Reviews from '@components/film-tabs/reviews/reviews';
 import { useAppSelector } from '../hooks/hooks';
+import { Reducer } from '../consts';
 
 function FilmTabs() {
   const [tab, setTab] = useState('Overview');
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector((state) => state[Reducer.FILM_REDUCER].reviews);
   const getTab = (tabFilm: string) => {
     if (tabFilm === 'Overview') {
       return <Overview />;

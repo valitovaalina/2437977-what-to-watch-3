@@ -1,17 +1,19 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { useAppSelector } from '@components/hooks/hooks';
 import React from 'react';
 
+import { useAppSelector } from '@components/hooks/hooks';
+import { Reducer } from '@components/consts';
+import { getRating } from '@components/extra-functions/get-rating-function';
+
 function Overview(): JSX.Element {
-  const currentFilm = useAppSelector((state) => state.film);
+  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
 
   return (
     <>
       <div className="film-rating">
         <div className="film-rating__score">{currentFilm?.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">{`${currentFilm?.scoresCount} ratings`}</span>
+          <span className="film-rating__level">{currentFilm?.rating && getRating(currentFilm?.rating)}</span>
+          <span className="film-rating__count">{currentFilm?.scoresCount && `${currentFilm?.scoresCount} ratings`}</span>
         </p>
       </div>
       <div className="film-card__text">

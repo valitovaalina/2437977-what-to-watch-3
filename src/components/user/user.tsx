@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { logOut } from '../../store/api-actions';
+
+import { logOut } from '@store/api-actions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { AuthorizationStatus } from '../consts';
+import { AppRoute, AuthorizationStatus, Reducer } from '../consts';
 
 function User(): JSX.Element {
-  const userData = useAppSelector((state) => state.userData);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
+  const avatar = useAppSelector((state) => state[Reducer.USER_REDUCER].avatar);
+  const authorizationStatus = useAppSelector((state) => state[Reducer.USER_REDUCER].authorizationStatus);
 
   const signOutClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ function User(): JSX.Element {
     return (
       <ul className="user-block">
         <li className="user-block__item">
-          <Link to='/login' className='user-block__link'>Sign in</Link>
+          <Link to={AppRoute.Signin} className='user-block__link'>Sign in</Link>
         </li>
       </ul>
     );
@@ -28,7 +28,7 @@ function User(): JSX.Element {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={userData?.avatarUrl} alt="User avatar" width="63" height="63" />
+          <img src={avatar || ''} alt="User avatar" width="63" height="63"/>
         </div>
       </li>
       <li className="user-block__item">

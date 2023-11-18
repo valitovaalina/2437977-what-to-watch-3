@@ -1,55 +1,113 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
-import './player-page.css';
 import { Link, useParams } from 'react-router-dom';
-import { Film } from '@components/types';
-import NotFoundPage from '../not-found-page/not-found-page';
+import { useEffect, useRef, useState } from 'react';
 
-type PlayerPageProps = {
-  films: Film[];
-}
+import './player-page.css';
+import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
+import { Reducer } from '@components/consts';
+import { fetchFilmByID } from '@store/api-actions';
 
-function PlayerPage({ films }: PlayerPageProps): JSX.Element {
-  const { id } = useParams();
-  const currentFilmId = Number(id);
-  const currentFilm = films.at(currentFilmId);
+function Player(): JSX.Element {
+  const id = String(useParams().id);
+  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
 
-  if (!id) {
-    return <NotFoundPage />;
-  }
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPause, setIsPause] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  const progressRef = useRef(null);
+  const [progressPosition, setProgressPosition] = useState(0);
+
+  const updateTime = () => {
+    if (videoRef.current) {
+      setTimeLeft(Math.round(videoRef.current?.duration - videoRef.current?.currentTime));
+      setProgressPosition((videoRef.current?.currentTime * 100) / videoRef.current?.duration);
+    }
+  };
+
+  const getTimeLeft = () => {
+    const bringTimeToFormat = (time: number) => time > 9 ? time : `0${time}`;
+
+    const hours = bringTimeToFormat(Math.floor(timeLeft / 60 / 60));
+    const minutes = bringTimeToFormat(Math.floor(timeLeft / 60 - Math.floor(timeLeft / 60 / 60) * 60));
+    const seconds = bringTimeToFormat(Math.floor(timeLeft % 60));
+
+    const timeInActualFormat = `${minutes}:${seconds}`;
+    return Number(hours) > 0 ? `${hours}:${timeInActualFormat}` : timeInActualFormat;
+  };
+
+  const actByPlayPauseClick = () => {
+    if (videoRef.current) {
+      if (isPause) {
+        videoRef.current.play();
+        setIsPause(false);
+      } else {
+        videoRef.current.pause();
+        setIsPause(true);
+      }
+    }
+  };
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(fetchFilmByID(id));
+      setIsPause(true);
+    }
+  }, [dispatch, id]);
+
   return (
     <div className="player">
       <Helmet>
         <title>Что посмотреть. Видеоплеер</title>
       </Helmet>
-      <video src="#" className="player__video" poster="img/player-poster.jpg" />
-      <Link to={`/films/${currentFilm?.id}`}>
-        <button type="button" className="player__exit">
-          Exit
-        </button>
+      <video
+        src={currentFilm?.videoLink}
+        className="player__video"
+        poster={currentFilm?.posterImage}
+        ref={videoRef}
+        onTimeUpdate={updateTime}
+      >
+      </video>
+
+      <Link to={currentFilm?.id && `/films/${currentFilm.id}`} type="button" className="player__exit">
+        Exit
       </Link>
+
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={30} max={100} />
-            <div className="player__toggler">
-              Toggler
-            </div>
+            <progress className="player__progress" value="0" max="100" />
+            <div className="player__toggler" style={{ left: `${progressPosition}%` }} ref={progressRef}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{getTimeLeft()}</div>
         </div>
+
         <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg className="player__play--icon-item" viewBox="0 0 19 19">
-              <use xlinkHref="#play-s" />
-            </svg>
-            <span>Play</span>
+          <button type="button" className="player__play" onClick={actByPlayPauseClick}>
+            {isPause ? (
+              <>
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#play-s" />
+                </svg>
+                <span>Play</span>
+              </>
+            ) : (
+              <>
+                <svg viewBox="0 0 14 21" width="14" height="21">
+                  <use xlinkHref="#pause" />
+                </svg>
+                <span>Pause</span>
+              </>
+            )}
           </button>
           <div className="player__name">Transpotting</div>
-          <button type="button" className="player__full-screen">
-            <svg className="player__full-screen--icon-item" viewBox="0 0 27 27">
+
+          <button type="button" className="player__full-screen" onClick={() => {
+            videoRef.current?.requestFullscreen();
+          }}
+          >
+            <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen" />
             </svg>
             <span>Full screen</span>
@@ -59,5 +117,4 @@ function PlayerPage({ films }: PlayerPageProps): JSX.Element {
     </div>
   );
 }
-
-export default PlayerPage;
+export default Player;

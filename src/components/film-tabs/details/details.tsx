@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { useAppSelector } from '@components/hooks/hooks';
+import { Reducer } from '@components/consts';
 
 function Details(): JSX.Element {
-  const currentFilm = useAppSelector((state) => state.film);
+  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
 
   return (
     <div className="film-card__text film-card__row">

@@ -1,12 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
+
 import { AuthorizationStatus, Genre } from '@components/consts';
 import { Film, Review, UserData } from '@components/types';
 
 export const Action = {
   CHANGE_GENRE: 'main/changeGenre',
   SET_FILM_CARD_COUNT: 'setFilmCardCount',
-  SHOW_MORE_FILMS: 'showMoreFilms',
-  RESET_SHOWN_FILMS: 'resetShownFilms',
   FILL_FILMS: 'fillFilms',
   APP_SET_ERROR: 'app/setError',
   SET_AUTH_STATUS: 'setAuthStatus',
@@ -15,6 +14,8 @@ export const Action = {
   LOAD_FILM: 'loadFilm',
   LOAD_REVIEWS: 'loadReviews',
   LOAD_SIMILAR: 'loadSimilarFilms',
+  SET_AVATAR: 'setAvatar',
+  LOAD_PROMO: 'loadPromo',
 };
 
 export const changeGenre = createAction<Genre>(Action.CHANGE_GENRE);
@@ -27,3 +28,5 @@ export const saveUser = createAction<UserData>(Action.SAVE_USER);
 export const loadFilm = createAction<Film>(Action.LOAD_FILM);
 export const loadReviews = createAction<Review[]>(Action.LOAD_REVIEWS);
 export const loadSimilarFilms = createAction<Film[]>(Action.LOAD_SIMILAR);
+export const setAvatar = createAction<string | null>(Action.SET_AVATAR);
+export const loadPromo = createAction<Film>(Action.LOAD_PROMO);

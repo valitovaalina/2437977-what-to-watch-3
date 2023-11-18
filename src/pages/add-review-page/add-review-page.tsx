@@ -1,14 +1,29 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Helmet } from 'react-helmet-async';
 import './add-review-page.css';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '@components/consts';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, Reducer } from '@components/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';
 import User from '@components/user/user';
-import { useAppSelector } from '@components/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
+import { useEffect } from 'react';
+import { setDataIsLoading } from '@store/actions';
+import { fetchFilmByID } from '@store/api-actions';
 
 function AddReviewPage(): JSX.Element {
-  const currentFilm = useAppSelector((state) => state.film);
+  const id = String(useParams().id);
+  const dispatch = useAppDispatch();
+  const currentFilm = useAppSelector((state) => state[Reducer.FILM_REDUCER].film);
+  const authStatus = useAppSelector((state) => state.USER_REDUCER.authorizationStatus);
+
+  useEffect(() => {
+    dispatch(setDataIsLoading(true));
+    dispatch(fetchFilmByID(id));
+    dispatch(setDataIsLoading(false));
+  }, [id, dispatch]);
+
+  if (authStatus === AuthorizationStatus.NoAuth) {
+    return <Navigate to={AppRoute.Root} />;
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -34,7 +49,7 @@ function AddReviewPage(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${currentFilm?.id}`} className="breadcrumbs__link">
+                <Link to={currentFilm?.id && `/films/${currentFilm.id}`} className="breadcrumbs__link">
                   {currentFilm?.name}
                 </Link>
               </li>
@@ -49,7 +64,7 @@ function AddReviewPage(): JSX.Element {
           <img
             className="film-card__poster--image-item"
             src={currentFilm?.posterImage}
-            alt={`${currentFilm?.name} poster`}
+            alt={currentFilm?.name && `${currentFilm.name} poster`}
           />
         </div>
       </div>

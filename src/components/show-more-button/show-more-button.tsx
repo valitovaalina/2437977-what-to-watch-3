@@ -1,6 +1,7 @@
+import { MouseEvent } from 'react';
+
 import { useAppDispatch } from '../hooks/hooks';
 import { setFilmCardCount } from '../../store/actions';
-import { MouseEvent } from 'react';
 
 function ShowMoreButton() {
   const dispatch = useAppDispatch();

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { fetchFilmByID } from '@store/api-actions';
 import { getFilm } from '@store/film-reducer/film-selectors';
 
-function Player(): JSX.Element {
+function Player() {
   const id = String(useParams().id);
   const currentFilm = useAppSelector(getFilm);
 
@@ -55,6 +55,10 @@ function Player(): JSX.Element {
       setIsPause(true);
     }
   }, [dispatch, id]);
+
+  if (!currentFilm) {
+    return null;
+  }
 
   return (
     <div className="player">

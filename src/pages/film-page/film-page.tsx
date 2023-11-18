@@ -13,7 +13,7 @@ import Logo from '@components/logo/logo';
 import { getFilm, getSimilarFilms } from '@store/film-reducer/film-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
-function FilmPage(): JSX.Element {
+function FilmPage() {
   const id = String(useParams().id);
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
@@ -25,6 +25,10 @@ function FilmPage(): JSX.Element {
     dispatch(fetchSimilarByID(id));
     dispatch(fetchReviewsByID(id));
   }, [id, dispatch]);
+
+  if (!currentFilm) {
+    return null;
+  }
 
   return (
     <Fragment>

@@ -12,10 +12,15 @@ import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
 import { getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
 
-function MainPage(): JSX.Element {
+function MainPage() {
   const promo = useAppSelector(getPromo);
   const filmsGenre = useAppSelector(getGenreFilmList);
   const filmCardCount = useAppSelector(getFilmCardCount);
+
+  if (!promo) {
+    return null;
+  }
+
   return (
     <Fragment>
       <Helmet>

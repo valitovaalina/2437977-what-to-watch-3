@@ -12,7 +12,7 @@ import Logo from '@components/logo/logo';
 import { getFilm } from '@store/film-reducer/film-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
-function AddReviewPage(): JSX.Element {
+function AddReviewPage() {
   const id = String(useParams().id);
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
@@ -26,6 +26,10 @@ function AddReviewPage(): JSX.Element {
 
   if (authStatus === AuthorizationStatus.NoAuth) {
     return <Navigate to={AppRoute.Root} />;
+  }
+
+  if (!currentFilm) {
+    return null;
   }
 
   return (

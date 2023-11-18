@@ -50,7 +50,7 @@ function MainPage(): JSX.Element {
               </p>
               <div className="film-card__buttons">
                 <Link
-                  to={promo && `/player/${promo.id}`}
+                  to={`/player/${promo?.id}`}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -60,7 +60,7 @@ function MainPage(): JSX.Element {
                   <span>Play</span>
                 </Link>
                 <Link
-                  to={promo && `/player/${promo.id}`}
+                  to={`/player/${promo?.id}`}
                   className="btn btn--play film-card__button"
                   type="button"
                 >

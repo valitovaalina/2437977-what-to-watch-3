@@ -70,7 +70,7 @@ function Player(): JSX.Element {
       >
       </video>
 
-      <Link to={currentFilm?.id && `/films/${currentFilm.id}`} type="button" className="player__exit">
+      <Link to={`/films/${currentFilm?.id}`} type="button" className="player__exit">
         Exit
       </Link>
 

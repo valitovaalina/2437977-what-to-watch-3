@@ -53,7 +53,7 @@ function FilmPage(): JSX.Element {
               </p>
               <div className="film-card__buttons">
                 <Link
-                  to={currentFilm?.id && `/player/${currentFilm.id}`}
+                  to={`/player/${currentFilm?.id}`}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -73,7 +73,7 @@ function FilmPage(): JSX.Element {
                   <span className="film-card__count">9</span>
                 </ Link>
                 {authorizationStatus === AuthorizationStatus.Auth && (
-                  <Link to={currentFilm?.id && `/films/${currentFilm.id}/review`} className="btn film-card__button">
+                  <Link to={`/films/${currentFilm?.id}/review`} className="btn film-card__button">
                     Add review
                   </ Link>
                 )}
@@ -87,7 +87,7 @@ function FilmPage(): JSX.Element {
               <img
                 className="film-card__poster--image-item"
                 src={currentFilm?.posterImage}
-                alt={currentFilm?.id && `${currentFilm.name} poster`}
+                alt={`${currentFilm?.name} poster`}
               />
             </div>
             <FilmTabs />

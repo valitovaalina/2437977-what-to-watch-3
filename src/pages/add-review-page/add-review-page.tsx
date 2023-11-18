@@ -46,7 +46,7 @@ function AddReviewPage(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={currentFilm?.id && `/films/${currentFilm.id}`} className="breadcrumbs__link">
+                <Link to={`/films/${currentFilm?.id}`} className="breadcrumbs__link">
                   {currentFilm?.name}
                 </Link>
               </li>

@@ -1,5 +1,5 @@
 import { store } from '../store/index.js';
-import { AuthorizationStatus, Genre } from './consts.ts';
+import { AuthorizationStatus, Genre, LogInState } from './consts.ts';
 
 export type Film = {
   id: string;
@@ -17,6 +17,7 @@ export type Film = {
   runTime: string;
   previewVideoLink: string;
   videoLink: string;
+  isFavorite: boolean;
 }
 
 export type Review = {
@@ -49,17 +50,21 @@ export type AppState = {
   dataIsLoading: boolean;
   error: string | null;
   promo: Film | null;
+  favoriteCount: number;
+  favoriteFilms: Film[];
 }
 
 export type UserState = {
   authorizationStatus: AuthorizationStatus;
   avatar: string | null;
+  loginState: LogInState;
 }
 
 export type FilmState = {
   film: Film | null;
   reviews: Review[];
   similarFilms: Film[];
+  isFilmLoading: boolean;
 }
 
 export type UserReview = {

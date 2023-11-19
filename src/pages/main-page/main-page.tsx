@@ -1,25 +1,47 @@
 import { Helmet } from 'react-helmet-async';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import FilmList from '@components/film-list/film-list';
 import './main-page.css';
 import GenreList from '@components/genre-list/genre-list';
-import { useAppSelector } from '@components/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import ShowMoreButton from '@components/show-more-button/show-more-button';
 import User from '@components/user/user';
 import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
-import { getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
+import { getFavCount, getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
+import { AuthorizationStatus } from '@components/consts';
+import { changePromoFavoriteStatus, fetchFavoriteFilms } from '@store/api-actions';
+import { setFavoriteCount } from '@store/actions';
+import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function MainPage() {
-  const promo = useAppSelector(getPromo);
+  const promoFilm = useAppSelector(getPromo);
   const filmsGenre = useAppSelector(getGenreFilmList);
   const filmCardCount = useAppSelector(getFilmCardCount);
+  const favCount = useAppSelector(getFavCount);
+  const authStatus = useAppSelector(getAuthStatus);
+  const dispatch = useAppDispatch();
 
-  if (!promo) {
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [authStatus, dispatch]);
+
+  if (!promoFilm) {
     return null;
   }
+
+  const addHandler = () => {
+    dispatch(changePromoFavoriteStatus({ filmId: promoFilm.id, status: +(!promoFilm?.isFavorite) }));
+    if (promoFilm?.isFavorite) {
+      dispatch(setFavoriteCount(favCount - 1));
+    } else {
+      dispatch(setFavoriteCount(favCount + 1));
+    }
+  };
 
   return (
     <Fragment>
@@ -29,8 +51,8 @@ function MainPage() {
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src={promo?.backgroundImage}
-            alt={promo?.name}
+            src={promoFilm?.backgroundImage}
+            alt={promoFilm?.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
@@ -43,19 +65,19 @@ function MainPage() {
             <div className="film-card__poster">
               <img
                 className="film-card__poster--image-item"
-                src={promo?.posterImage}
-                alt={promo?.name}
+                src={promoFilm?.posterImage}
+                alt={promoFilm?.name}
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promo?.name}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promo?.genre}</span>
-                <span className="film-card__year">{promo?.released}</span>
+                <span className="film-card__genre">{promoFilm?.genre}</span>
+                <span className="film-card__year">{promoFilm?.released}</span>
               </p>
               <div className="film-card__buttons">
                 <Link
-                  to={`/player/${promo?.id}`}
+                  to={`/player/${promoFilm?.id}`}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -64,17 +86,24 @@ function MainPage() {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link
-                  to={`/player/${promo?.id}`}
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg className="btn--list__icon-item" viewBox="0 0 19 20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
+                {authStatus === AuthorizationStatus.Auth && (
+                  <button
+                    className="btn btn--list film-card__button"
+                    onClick={addHandler}
+                  >
+                    {promoFilm?.isFavorite ? (
+                      <svg viewBox="0 0 18 14" width="19" height="14">
+                        <use xlinkHref="#in-list" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add" />
+                      </svg>
+                    )}
+                    <span>My list</span>
+                    <span className="film-card__count">{favCount}</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

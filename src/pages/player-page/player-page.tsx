@@ -6,10 +6,13 @@ import './player-page.css';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { fetchFilmByID } from '@store/api-actions';
 import { getFilm } from '@store/film-reducer/film-selectors';
+import { Reducer } from '@components/consts';
+import Loader from '@components/loader/loader';
 
 function Player() {
   const id = String(useParams().id);
   const currentFilm = useAppSelector(getFilm);
+  const isFilmLoadingStatus = useAppSelector((state) => state[Reducer.FILM_REDUCER].isFilmLoading);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPause, setIsPause] = useState(false);
@@ -58,6 +61,10 @@ function Player() {
 
   if (!currentFilm) {
     return null;
+  }
+
+  if (isFilmLoadingStatus) {
+    return <Loader />;
   }
 
   return (

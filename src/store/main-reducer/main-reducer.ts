@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { AppState } from '@components/types';
-import { changeGenre, setError } from '../actions';
-import { fetchFilms, fetchPromoFilm } from '@store/api-actions';
-import { Genre } from '@components/consts';
+import { changeGenre, setError, setFavoriteCount, setFilmCardCount } from '../actions';
+import { changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from '@store/api-actions';
+import { Genre, Reducer, visibleFilmCardCount } from '@components/consts';
 
 const initialState: AppState = {
   filmList: [],
@@ -12,11 +12,13 @@ const initialState: AppState = {
   filmCardCount: 0,
   dataIsLoading: false,
   error: null,
-  promo: null
+  promo: null,
+  favoriteFilms: [],
+  favoriteCount: 0,
 };
 
 export const mainReducer = createSlice({
-  name: 'MAIN_REDUCER',
+  name: Reducer.MAIN_REDUCER,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -25,6 +27,10 @@ export const mainReducer = createSlice({
         state.genre = action.payload;
         state.sortedFilmList = (state.genre === Genre.All) ? state.filmList : state.filmList.filter((film) => film.genre === state.genre);
         state.filmCardCount = Math.min(state.sortedFilmList.length, 8);
+      })
+      .addCase(setFilmCardCount, (state) => {
+        const currentGenreFilms = state.sortedFilmList.length;
+        state.filmCardCount = (state.filmCardCount + visibleFilmCardCount > currentGenreFilms) ? currentGenreFilms : state.filmCardCount + visibleFilmCardCount;
       })
       .addCase(setError, (state, action) => {
         state.error = action.payload;
@@ -40,6 +46,17 @@ export const mainReducer = createSlice({
       })
       .addCase(fetchPromoFilm.fulfilled, (state, action) => {
         state.promo = action.payload;
+      })
+      .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
+        state.favoriteFilms = action.payload;
+        state.favoriteCount = state.favoriteFilms.length;
+        state.dataIsLoading = false;
+      })
+      .addCase(changePromoFavoriteStatus.fulfilled, (state, action) => {
+        state.promo = action.payload;
+      })
+      .addCase(setFavoriteCount, (state, action) => {
+        state.favoriteCount = action.payload;
       });
   },
 });

@@ -36,6 +36,7 @@ export enum Genre {
   Thriller = 'Thriller'
 }
 
+
 export enum APIRoute {
   Films = '/films',
   Login = '/login',
@@ -43,11 +44,19 @@ export enum APIRoute {
   Reviews = '/comments',
   SimilarFilms = '/similar',
   Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 export enum Reducer {
   USER_REDUCER = 'USER_REDUCER',
   MAIN_REDUCER = 'MAIN_REDUCER',
   FILM_REDUCER = 'FILM_REDUCER',
+}
+
+export enum LogInState {
+  NoError = 'NoError',
+  NotValidEmail = 'NotValidEmail',
+  NotValidPassword = 'NotValidPassword',
+  NotValidEmailAndPassword = 'NotValidEmailAndPassword',
 }
 

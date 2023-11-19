@@ -1,39 +1,61 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useRef, useState } from 'react';
 
-import { AppRoute, AuthorizationStatus } from '@components/consts';
+import { AppRoute, AuthorizationStatus, LogInState, Reducer } from '@components/consts';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { AuthData } from '@components/types';
 import { logIn } from '@store/api-actions';
 import Footer from '@components/footer/footer';
+import { setLoginState } from '@store/user-reducer/user-reducer';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function SignInPage(): JSX.Element {
   const [emailField, setEmailField] = useState<string>('');
   const [passwordField, setPasswordField] = useState<string>('');
-  const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
-  const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const authStatus = useAppSelector(getAuthStatus);
-
-  const onSubmit = (authData: AuthData) => {
-    dispatch(logIn(authData));
-  };
+  const loginState = useAppSelector((state) => state[Reducer.USER_REDUCER].loginState);
+  const formRef = useRef(null);
 
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailField !== null && passwordField !== null && rePassword.test(passwordField) && reEmail.test(emailField)) {
-      onSubmit({
-        email: emailField,
-        password: passwordField,
-      });
+    const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
+    const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    const isEmailCorrect = () => emailField === null || !reEmail.test(emailField);
+    const isPasswordCorrect = () => passwordField === null || !rePassword.test(passwordField);
+
+    if (formRef.current) {
+      if (isEmailCorrect() && isPasswordCorrect()) {
+        dispatch(setLoginState(LogInState.NotValidEmailAndPassword));
+      } else if (isEmailCorrect()) {
+        dispatch(setLoginState(LogInState.NotValidEmail));
+      } else if (isPasswordCorrect()) {
+        dispatch(setLoginState(LogInState.NotValidPassword));
+      } else {
+        dispatch(logIn({ email: emailField, password: passwordField }));
+      }
     }
   };
+
+  const showErrMessage = (logInState: LogInState) => {
+    switch (logInState) {
+      case LogInState.NotValidEmail:
+        return (<p>Email не корректный</p>);
+      case LogInState.NotValidPassword:
+        return (<p>Пароль не корректный: он должен содержать как минимум 1 цифру и 1 букву</p>);
+      case LogInState.NotValidEmailAndPassword:
+        return (<p>Email и пароль не корректные</p>);
+      default:
+        return null;
+    }
+  };
+
+  const errorMessage = useMemo(() => showErrMessage(loginState), [loginState]);
 
   if (authStatus === AuthorizationStatus.Auth) {
     navigate(AppRoute.Root);
@@ -50,7 +72,10 @@ function SignInPage(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={submitHandler}>
+        <form action="#" className="sign-in__form" ref={formRef} onSubmit={submitHandler}>
+          <div className="sign-in__message">
+            {errorMessage}
+          </div>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input

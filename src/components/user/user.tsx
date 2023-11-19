@@ -9,14 +9,14 @@ import { getAuthStatus, getAvatar } from '@store/user-reducer/user-selectors';
 function User(): JSX.Element {
   const dispatch = useAppDispatch();
   const avatar = useAppSelector(getAvatar);
-  const authorizationStatus = useAppSelector(getAuthStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const signOutClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     dispatch(logOut());
   };
 
-  if (authorizationStatus !== AuthorizationStatus.Auth) {
+  if (authStatus !== AuthorizationStatus.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">

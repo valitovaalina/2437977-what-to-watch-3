@@ -4,6 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '@components/consts';
 import { AppDispatch, AuthData, Film, Review, State, UserData, UserReview } from '@components/types';
 import { setError } from './actions';
+import { saveToken } from '@services/token';
 
 export const fetchFilms = createAsyncThunk<Film[], undefined, {
   state: State;
@@ -23,6 +24,7 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
   'checkAuth',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserData>(APIRoute.Login);
+    saveToken(data.token);
     return data;
   }
 );
@@ -111,6 +113,39 @@ export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
   'fetchPromoFilm',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<Film>(APIRoute.Promo);
+    return data;
+  }
+);
+
+export const fetchFavoriteFilms = createAsyncThunk<Film[], undefined, {
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavoriteFilms',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<Film[]>(APIRoute.Favorite);
+    return data;
+  }
+);
+
+export const changeFilmFavoriteStatus = createAsyncThunk<Film, { filmId: string; status: number }, {
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeFilmFavoriteStatus',
+  async ({ filmId: id, status: isFavorite }, { extra: api }) => {
+    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    return data;
+  }
+);
+
+export const changePromoFavoriteStatus = createAsyncThunk<Film, { filmId: string; status: number }, {
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changePromoFavoriteStatus',
+  async ({ filmId: id, status: isFavorite }, { extra: api }) => {
+    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
     return data;
   }
 );

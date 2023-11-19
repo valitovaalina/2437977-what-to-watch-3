@@ -1,16 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
-import FilmList from '@components/film-list/film-list';
 import { Link, useParams } from 'react-router-dom';
+
+import FilmList from '@components/film-list/film-list';
 import { AuthorizationStatus } from '@components/consts';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '@store/api-actions';
+import { changeFilmFavoriteStatus, fetchFavoriteFilms, fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '@store/api-actions';
 import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
-import { getFilm, getSimilarFilms } from '@store/film-reducer/film-selectors';
+import { getFilm, getFilmLoadingStatus, getSimilarFilms } from '@store/film-reducer/film-selectors';
+import Loader from '@components/loader/loader';
+import { setFavoriteCount } from '@store/actions';
+import { getFavCount } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function FilmPage() {
@@ -18,16 +22,34 @@ function FilmPage() {
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);
-  const authorizationStatus = useAppSelector(getAuthStatus);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isFilmLoadingStatus = useAppSelector(getFilmLoadingStatus);
+  const favCount = useAppSelector(getFavCount);
 
   useEffect(() => {
     dispatch(fetchFilmByID(id));
     dispatch(fetchSimilarByID(id));
     dispatch(fetchReviewsByID(id));
-  }, [id, dispatch]);
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [id, dispatch, authStatus]);
 
   if (!currentFilm) {
     return null;
+  }
+
+  const addHandler = () => {
+    dispatch(changeFilmFavoriteStatus({ filmId: currentFilm?.id, status: +(!currentFilm?.isFavorite) }));
+    if (currentFilm?.isFavorite) {
+      dispatch(setFavoriteCount(favCount - 1));
+    } else {
+      dispatch(setFavoriteCount(favCount + 1));
+    }
+  };
+
+  if (isFilmLoadingStatus) {
+    return <Loader />;
   }
 
   return (
@@ -66,17 +88,25 @@ function FilmPage() {
                   </svg>
                   <span>Play</span>
                 </ Link>
-                <Link to={'/mylist'}
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" className="btn--list__icon-item">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </ Link>
-                {authorizationStatus === AuthorizationStatus.Auth && (
+                {authStatus === AuthorizationStatus.Auth && (
+                  <button
+                    className="btn btn--list film-card__button"
+                    onClick={addHandler}
+                  >
+                    {currentFilm?.isFavorite ? (
+                      <svg viewBox="0 0 18 14" width="19" height="14">
+                        <use xlinkHref="#in-list" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add" />
+                      </svg>
+                    )}
+                    <span>My list</span>
+                    <span className="film-card__count">{favCount}</span>
+                  </button>
+                )}
+                {authStatus === AuthorizationStatus.Auth && (
                   <Link to={`/films/${currentFilm?.id}/review`} className="btn film-card__button">
                     Add review
                   </ Link>

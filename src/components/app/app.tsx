@@ -12,11 +12,12 @@ import { AppRoute } from '../consts';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import { useAppSelector } from '../hooks/hooks';
-import { getGenreFilmList, getLoading } from '@store/main-reducer/main-selectors';
+import { getLoading } from '@store/main-reducer/main-selectors';
+import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function App(): JSX.Element {
-  const films = useAppSelector(getGenreFilmList);
   const isLoading = useAppSelector(getLoading);
+  const authStatus = useAppSelector(getAuthStatus);
 
   if (isLoading) {
     return (
@@ -39,8 +40,8 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute>
-                <MyListPage films={films} />
+              <PrivateRoute authStatus={authStatus}>
+                <MyListPage />
               </PrivateRoute>
             }
           />

@@ -1,18 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '@components/consts';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { AuthorizationStatus, LogInState, Reducer } from '@components/consts';
 import { UserState } from '@components/types';
-import { dropToken, saveToken } from '../../services/token';
+import { dropToken, saveToken } from '@services/token';
 import { checkAuth, logIn, logOut, } from '../api-actions';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NoAuth,
   avatar: null,
+  loginState: LogInState.NoError,
 };
 
 export const userReducer = createSlice({
-  name: 'USER_REDUCER',
+  name: Reducer.USER_REDUCER,
   initialState,
-  reducers: {},
+  reducers: {
+    setLoginState: (state, action: PayloadAction<LogInState>) => {
+      state.loginState = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(logOut.fulfilled, (state) => {
@@ -21,6 +26,7 @@ export const userReducer = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(logIn.fulfilled, (state, action) => {
+        state.loginState = LogInState.NoError;
         saveToken(action.payload.token);
         state.avatar = action.payload.avatarUrl;
         state.authorizationStatus = AuthorizationStatus.Auth;
@@ -34,3 +40,5 @@ export const userReducer = createSlice({
       });
   },
 });
+
+export const {setLoginState} = userReducer.actions;

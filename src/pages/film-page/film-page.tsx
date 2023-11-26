@@ -18,7 +18,7 @@ import { getFavCount } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function FilmPage() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);

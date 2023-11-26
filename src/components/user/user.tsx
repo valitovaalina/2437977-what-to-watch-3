@@ -25,6 +25,7 @@ function User(): JSX.Element {
       </ul>
     );
   }
+
   return (
     <ul className="user-block">
       <li className="user-block__item">

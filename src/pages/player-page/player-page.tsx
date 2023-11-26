@@ -8,9 +8,11 @@ import { fetchFilmByID } from '@store/api-actions';
 import { getFilm } from '@store/film-reducer/film-selectors';
 import { Reducer } from '@components/consts';
 import Loader from '@components/loader/loader';
+import { getTimeLeft } from '@components/extra-functions/get-time-left';
+import PlayerState from '@components/player-state/player-state';
 
 function Player() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const currentFilm = useAppSelector(getFilm);
   const isFilmLoadingStatus = useAppSelector((state) => state[Reducer.FILM_REDUCER].isFilmLoading);
 
@@ -28,17 +30,6 @@ function Player() {
     }
   };
 
-  const getTimeLeft = () => {
-    const bringTimeToFormat = (time: number) => time > 9 ? time : `0${time}`;
-
-    const hours = bringTimeToFormat(Math.floor(timeLeft / 60 / 60));
-    const minutes = bringTimeToFormat(Math.floor(timeLeft / 60 - Math.floor(timeLeft / 60 / 60) * 60));
-    const seconds = bringTimeToFormat(Math.floor(timeLeft % 60));
-
-    const timeInActualFormat = `${minutes}:${seconds}`;
-    return Number(hours) > 0 ? `${hours}:${timeInActualFormat}` : timeInActualFormat;
-  };
-
   const actByPlayPauseClick = () => {
     if (videoRef.current) {
       if (isPause) {
@@ -53,7 +44,7 @@ function Player() {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (id !== undefined) {
+    if (id) {
       dispatch(fetchFilmByID(id));
       setIsPause(true);
     }
@@ -91,26 +82,14 @@ function Player() {
             <progress className="player__progress" value="0" max="100" />
             <div className="player__toggler" style={{ left: `${progressPosition}%` }} ref={progressRef}>Toggler</div>
           </div>
-          <div className="player__time-value">{getTimeLeft()}</div>
+          <div className="player__time-value">{getTimeLeft(timeLeft)}</div>
         </div>
 
         <div className="player__controls-row">
           <button type="button" className="player__play" onClick={actByPlayPauseClick}>
-            {isPause ? (
-              <>
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s" />
-                </svg>
-                <span>Play</span>
-              </>
-            ) : (
-              <>
-                <svg viewBox="0 0 14 21" width="14" height="21">
-                  <use xlinkHref="#pause" />
-                </svg>
-                <span>Pause</span>
-              </>
-            )}
+            {isPause
+              ? <PlayerState viewBox={'0 0 19 19'} width={19} height={19} xlinkHref={'#play-s'} state={'Play'} />
+              : <PlayerState viewBox={'0 0 14 21'} width={14} height={21} xlinkHref={'#pause'} state={'Pause'} />}
           </button>
           <div className="player__name">Transpotting</div>
 

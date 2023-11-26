@@ -13,11 +13,9 @@ import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import { useAppSelector } from '../hooks/hooks';
 import { getLoading } from '@store/main-reducer/main-selectors';
-import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector(getLoading);
-  const authStatus = useAppSelector(getAuthStatus);
 
   if (isLoading) {
     return (
@@ -40,7 +38,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authStatus={authStatus}>
+              <PrivateRoute>
                 <MyListPage />
               </PrivateRoute>
             }

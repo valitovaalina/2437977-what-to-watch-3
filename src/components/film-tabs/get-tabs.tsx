@@ -3,7 +3,7 @@ import Overview from './overview/overview';
 import Reviews from './reviews/reviews';
 import { Film, Review } from '../types';
 
-export const getTabs = (tabFilm: string, currentFilm: Film | null, reviews: Review[]) => {
+export const getTabs = (tabFilm: 'Overview' | 'Details' | 'Reviews', currentFilm: Film | null, reviews: Review[]) => {
   if (tabFilm === 'Overview') {
     return <Overview currentFilm={currentFilm} />;
   }

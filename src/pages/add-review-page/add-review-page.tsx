@@ -13,7 +13,7 @@ import { getFilm } from '@store/film-reducer/film-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function AddReviewPage() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
   const authStatus = useAppSelector(getAuthStatus);

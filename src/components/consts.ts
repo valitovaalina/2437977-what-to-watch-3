@@ -1,6 +1,12 @@
 export const TIMEOUT_SHOW_ERROR = 2000;
 export const visibleFilmCardCount = 8;
 export const hoverFilmCardTime = 1000;
+export const minLengthReview = 50;
+export const maxLengthReview = 1000;
+export const timeTranslation = 60;
+export const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
+export const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 
 export const Setting = {
   filmCardTitle: 'The Grand Budapest Hotel',

@@ -4,7 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '@components/consts';
 import { AppDispatch, AuthData, Film, Review, State, UserData, UserReview } from '@components/types';
 import { setError } from './actions';
-import { saveToken } from '@services/token';
 
 export const fetchFilms = createAsyncThunk<Film[], undefined, {
   state: State;

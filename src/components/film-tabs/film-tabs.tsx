@@ -5,7 +5,7 @@ import { getTabs } from './get-tabs';
 import { getFilm, getReviews } from '@store/film-reducer/film-selectors';
 
 function FilmTabs() {
-  const [tab, setTab] = useState('Overview');
+  const [tab, setTab] = useState<'Overview' | 'Details' | 'Reviews'>('Overview');
   const reviews = useAppSelector(getReviews);
   const currentFilm = useAppSelector(getFilm);
 

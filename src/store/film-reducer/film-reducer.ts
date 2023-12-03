@@ -31,7 +31,9 @@ export const filmReducer = createSlice({
         state.similarFilms = action.payload;
       })
       .addCase(changeFilmFavoriteStatus.fulfilled, (state, action) => {
-        state.film = action.payload;
+        if (state.film?.id === action.payload.id) {
+          state.film.isFavorite = action.payload.isFavorite;
+        }
       });
   },
 });

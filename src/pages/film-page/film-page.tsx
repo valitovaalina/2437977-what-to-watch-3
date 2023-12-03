@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
@@ -54,9 +53,6 @@ function FilmPage() {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>Что посмотреть. Описание фильма</title>
-      </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">

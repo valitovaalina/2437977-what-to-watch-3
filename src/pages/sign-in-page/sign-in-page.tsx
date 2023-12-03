@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useMemo, useRef, useState } from 'react';
 
@@ -60,9 +59,6 @@ function SignInPage(): JSX.Element {
 
   return (
     <div className="user-page">
-      <Helmet>
-        <title>Что посмотреть. Авторизуйтесь</title>
-      </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
         </div>

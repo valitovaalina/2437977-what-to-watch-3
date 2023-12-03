@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
@@ -60,9 +59,6 @@ function Player() {
 
   return (
     <div className="player">
-      <Helmet>
-        <title>Что посмотреть. Видеоплеер</title>
-      </Helmet>
       <video
         src={currentFilm?.videoLink}
         className="player__video"

@@ -1,5 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { Route, Routes } from 'react-router-dom';
 
 import MainPage from '@pages/main-page/main-page';
 import SignInPage from '@pages/sign-in-page/sign-in-page';
@@ -13,11 +12,9 @@ import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import { useAppSelector } from '../hooks/hooks';
 import { getLoading } from '@store/main-reducer/main-selectors';
-import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector(getLoading);
-  const authStatus = useAppSelector(getAuthStatus);
 
   if (isLoading) {
     return (
@@ -26,44 +23,40 @@ function App(): JSX.Element {
   }
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<MainPage />}
-          />
-          <Route
-            path={AppRoute.Signin}
-            element={<SignInPage />}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute authStatus={authStatus}>
-                <MyListPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Film}
-            element={<FilmPage />}
-          />
-          <Route
-            path={AppRoute.AddReview}
-            element={<AddReviewPage />}
-          />
-          <Route
-            path={AppRoute.Player}
-            element={<PlayerPage />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.Signin}
+        element={<SignInPage />}
+      />
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute>
+            <MyListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Film}
+        element={<FilmPage />}
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={<AddReviewPage />}
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<PlayerPage />}
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
 

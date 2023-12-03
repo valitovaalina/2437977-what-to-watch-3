@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -45,9 +44,6 @@ function MainPage() {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>Что посмотреть. Главная</title>
-      </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img

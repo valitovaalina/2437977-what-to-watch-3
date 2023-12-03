@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 import App from '@components/app/app';
 import { store } from './store';
@@ -19,8 +21,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <App />
+      <HelmetProvider>
+        <BrowserRouter>
+          <ToastContainer />
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
     </Provider>
   </React.StrictMode>
 );

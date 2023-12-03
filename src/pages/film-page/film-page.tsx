@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Fragment, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ import { getFavCount } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function FilmPage() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);
@@ -54,9 +53,6 @@ function FilmPage() {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>Что посмотреть. Описание фильма</title>
-      </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">

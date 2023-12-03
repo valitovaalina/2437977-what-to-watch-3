@@ -5,6 +5,7 @@ import { setFilmCardCount } from '../../store/actions';
 
 function ShowMoreButton() {
   const dispatch = useAppDispatch();
+
   return (
     <div className="catalog__more">
       <button className="catalog__button" type="button" onClick={(evt: MouseEvent<HTMLButtonElement>) => {

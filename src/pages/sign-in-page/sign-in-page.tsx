@@ -1,8 +1,7 @@
-import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useMemo, useRef, useState } from 'react';
 
-import { AppRoute, AuthorizationStatus, LogInState, Reducer } from '@components/consts';
+import { AppRoute, AuthorizationStatus, LogInState, Reducer, reEmail, rePassword } from '@components/consts';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { logIn } from '@store/api-actions';
 import Footer from '@components/footer/footer';
@@ -22,9 +21,6 @@ function SignInPage(): JSX.Element {
 
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
-    const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     const isEmailCorrect = () => emailField === null || !reEmail.test(emailField);
     const isPasswordCorrect = () => passwordField === null || !rePassword.test(passwordField);
@@ -63,9 +59,6 @@ function SignInPage(): JSX.Element {
 
   return (
     <div className="user-page">
-      <Helmet>
-        <title>Что посмотреть. Авторизуйтесь</title>
-      </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
         </div>

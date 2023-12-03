@@ -4,9 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
 import RatingItem from '../rating-item/rating-item';
+import { maxLengthReview, minLengthReview } from '../consts';
 
 function AddReviewForm() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const navigate = useNavigate();
   const [filmRating, setFilmRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
@@ -48,15 +49,15 @@ function AddReviewForm() {
             name="review-text"
             id="review-text"
             placeholder="Review text"
-            minLength={50}
-            maxLength={400}
+            minLength={minLengthReview}
+            maxLength={maxLengthReview}
           >
           </textarea>
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!filmRating || !reviewContent || reviewContent.length < 50 || reviewContent.length > 400}
+              disabled={!filmRating || !reviewContent || reviewContent.length < minLengthReview || reviewContent.length > maxLengthReview}
             >
               Post
             </button>

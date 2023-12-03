@@ -24,8 +24,11 @@ function Overview({ currentFilm }: OverviewProps): JSX.Element {
         </p>
         <p className="film-card__starring">
           <strong>
-            Starring: {currentFilm?.starring.map((actor) => (
-              currentFilm?.starring[currentFilm?.starring.length - 1] === actor ? <React.Fragment key={actor}>{actor} and other</React.Fragment> : <React.Fragment key={actor}>{actor}, </React.Fragment>
+            Starring:
+            {currentFilm?.starring.map((actor) => (
+              <React.Fragment key={actor}>
+                {actor} {`${currentFilm?.starring[currentFilm?.starring.length - 1] === actor ? 'and other' : ''}`}
+              </React.Fragment>
             ))}
           </strong>
         </p>

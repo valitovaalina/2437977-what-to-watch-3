@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 
 import './my-list-page.css';
@@ -25,9 +24,6 @@ function MyListPage(): JSX.Element {
 
   return (
     <div className="user-page">
-      <Helmet>
-        <title>Что посмотреть. Мой список фильмов</title>
-      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
         <h1 className="page-title user-page__title">

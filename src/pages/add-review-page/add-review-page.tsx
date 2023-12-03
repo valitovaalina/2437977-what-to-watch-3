@@ -1,11 +1,11 @@
-import { Helmet } from 'react-helmet-async';
-import './add-review-page.css';
+import { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
+
+import './add-review-page.css';
 import { AppRoute, AuthorizationStatus } from '@components/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';
 import User from '@components/user/user';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { useEffect } from 'react';
 import { setDataIsLoading } from '@store/actions';
 import { fetchFilmByID } from '@store/api-actions';
 import Logo from '@components/logo/logo';
@@ -13,7 +13,7 @@ import { getFilm } from '@store/film-reducer/film-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
 
 function AddReviewPage() {
-  const id = String(useParams().id);
+  const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const currentFilm = useAppSelector(getFilm);
   const authStatus = useAppSelector(getAuthStatus);
@@ -34,9 +34,6 @@ function AddReviewPage() {
 
   return (
     <section className="film-card film-card--full">
-      <Helmet>
-        <title>Что посмотреть. Оставьте отзыв!</title>
-      </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img

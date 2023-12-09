@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { APIRoute, TIMEOUT_SHOW_ERROR } from '@components/consts';
+import { ApiRoute, TIMEOUT_SHOW_ERROR } from '@components/consts';
 import { AppDispatch, AuthData, Film, Review, State, UserData, UserReview } from '@components/types';
 import { setError } from './actions';
 
@@ -11,7 +11,7 @@ export const fetchFilms = createAsyncThunk<Film[], undefined, {
 }>(
   'fetchFilms',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Film[]>(APIRoute.Films);
+    const { data } = await api.get<Film[]>(ApiRoute.Films);
     return data;
   }
 );
@@ -22,7 +22,7 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
 }>(
   'checkAuth',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<UserData>(APIRoute.Login);
+    const { data } = await api.get<UserData>(ApiRoute.Login);
     return data;
   }
 );
@@ -33,7 +33,7 @@ export const logIn = createAsyncThunk<UserData, AuthData, {
 }>(
   'login',
   async ({ email, password }, { extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, { email, password, });
+    const { data } = await api.post<UserData>(ApiRoute.Login, { email, password, });
     return data;
   }
 );
@@ -44,7 +44,7 @@ export const logOut = createAsyncThunk<void, undefined, {
 }>(
   'logout',
   async (_arg, { extra: api }) => {
-    await api.delete(APIRoute.Logout);
+    await api.delete(ApiRoute.Logout);
   }
 );
 
@@ -67,7 +67,7 @@ export const fetchFilmByID = createAsyncThunk<Film, string, {
 }>(
   'fetchFilmById',
   async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    const { data } = await api.get<Film>(`${ApiRoute.Films}/${filmId}`);
     return data;
   }
 );
@@ -78,7 +78,7 @@ export const fetchReviewsByID = createAsyncThunk<Review[], string, {
 }>(
   'fetchReviewsById',
   async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Review[]>(`${APIRoute.Reviews}/${filmId}`);
+    const { data } = await api.get<Review[]>(`${ApiRoute.Reviews}/${filmId}`);
     return data;
   }
 );
@@ -89,7 +89,7 @@ export const fetchSimilarByID = createAsyncThunk<Film[], string, {
 }>(
   'fetchSimilarById',
   async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Film[]>(`${APIRoute.Films}/${filmId}${APIRoute.SimilarFilms}`);
+    const { data } = await api.get<Film[]>(`${ApiRoute.Films}/${filmId}${ApiRoute.SimilarFilms}`);
     return data;
   }
 );
@@ -100,7 +100,7 @@ export const postReview = createAsyncThunk<void, UserReview, {
 }>(
   'data/postFilmReview',
   async ({ comment, rating, filmId }, { extra: api }) => {
-    await api.post<UserReview>(`${APIRoute.Reviews}/${filmId}`, { comment, rating, });
+    await api.post<UserReview>(`${ApiRoute.Reviews}/${filmId}`, { comment, rating, });
   }
 );
 
@@ -110,7 +110,7 @@ export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
 }>(
   'fetchPromoFilm',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Film>(APIRoute.Promo);
+    const { data } = await api.get<Film>(ApiRoute.Promo);
     return data;
   }
 );
@@ -121,7 +121,7 @@ export const fetchFavoriteFilms = createAsyncThunk<Film[], undefined, {
 }>(
   'fetchFavoriteFilms',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Film[]>(APIRoute.Favorite);
+    const { data } = await api.get<Film[]>(ApiRoute.Favorite);
     return data;
   }
 );
@@ -132,7 +132,7 @@ export const changeFilmFavoriteStatus = createAsyncThunk<Film, { filmId: string;
 }>(
   'changeFilmFavoriteStatus',
   async ({ filmId: id, status: isFavorite }, { extra: api }) => {
-    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    const { data } = await api.post<Film>(`${ApiRoute.Favorite}/${id}/${isFavorite}`);
     return data;
   }
 );
@@ -143,7 +143,7 @@ export const changePromoFavoriteStatus = createAsyncThunk<Film, { filmId: string
 }>(
   'changePromoFavoriteStatus',
   async ({ filmId: id, status: isFavorite }, { extra: api }) => {
-    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    const { data } = await api.post<Film>(`${ApiRoute.Favorite}/${id}/${isFavorite}`);
     return data;
   }
 );

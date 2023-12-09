@@ -14,6 +14,7 @@ import { AuthorizationStatus } from '@components/consts';
 import { changePromoFavoriteStatus, fetchFavoriteFilms } from '@store/api-actions';
 import { setFavoriteCount } from '@store/actions';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
+import PlayerState from '@components/player-state/player-state';
 
 function MainPage() {
   const promoFilm = useAppSelector(getPromo);
@@ -24,16 +25,22 @@ function MainPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth) {
+    let isMounted = true;
+
+    if (isMounted && authStatus === AuthorizationStatus.Auth) {
       dispatch(fetchFavoriteFilms());
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [authStatus, dispatch]);
 
   if (!promoFilm) {
     return null;
   }
 
-  const addHandler = () => {
+  const handleAddClick = () => {
     dispatch(changePromoFavoriteStatus({ filmId: promoFilm.id, status: +(!promoFilm?.isFavorite) }));
     if (promoFilm?.isFavorite) {
       dispatch(setFavoriteCount(favCount - 1));
@@ -85,17 +92,13 @@ function MainPage() {
                 {authStatus === AuthorizationStatus.Auth && (
                   <button
                     className="btn btn--list film-card__button"
-                    onClick={addHandler}
+                    onClick={handleAddClick}
                   >
-                    {promoFilm?.isFavorite ? (
-                      <svg viewBox="0 0 18 14" width="19" height="14">
-                        <use xlinkHref="#in-list" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add" />
-                      </svg>
-                    )}
+                    {promoFilm?.isFavorite
+                      ?
+                      <PlayerState viewBox={'0 0 18 14'} width={19} height={14} xlinkHref={'#in-list'} state={''} />
+                      :
+                      <PlayerState viewBox={'0 0 19 20'} width={19} height={20} xlinkHref={'#add'} state={''} />}
                     <span>My list</span>
                     <span className="film-card__count">{favCount}</span>
                   </button>

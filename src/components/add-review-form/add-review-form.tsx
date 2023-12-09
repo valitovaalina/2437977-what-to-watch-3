@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
 import RatingItem from '../rating-item/rating-item';
-import { maxLengthReview, minLengthReview } from '../consts';
+import { MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW } from '../consts';
 
 function AddReviewForm() {
   const { id = '' } = useParams();
@@ -35,7 +35,7 @@ function AddReviewForm() {
           <div className="rating__stars">
             {Array.from({ length: 10 }, (_, i) => i + 1)
               .reverse()
-              .map((number) => <RatingItem key={number} number={number} handleInputChange={handleInputChange} />)}
+              .map((number) => <RatingItem key={number} number={number} onInputChange={handleInputChange} />)}
           </div>
         </div>
 
@@ -49,15 +49,15 @@ function AddReviewForm() {
             name="review-text"
             id="review-text"
             placeholder="Review text"
-            minLength={minLengthReview}
-            maxLength={maxLengthReview}
+            minLength={MIN_LENGTH_REVIEW}
+            maxLength={MAX_LENGTH_REVIEW}
           >
           </textarea>
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!filmRating || !reviewContent || reviewContent.length < minLengthReview || reviewContent.length > maxLengthReview}
+              disabled={!filmRating || !reviewContent || reviewContent.length < MIN_LENGTH_REVIEW || reviewContent.length > MAX_LENGTH_REVIEW}
             >
               Post
             </button>

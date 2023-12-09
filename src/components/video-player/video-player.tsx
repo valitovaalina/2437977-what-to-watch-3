@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
+import './video-player.css';
+
 type VideoPlayerProps = {
   isPlaying: boolean;
   isMuting: boolean;
@@ -45,9 +47,7 @@ function VideoPlayer({ isPlaying, isMuting, src, poster }: VideoPlayerProps): JS
   }, [isPlaying, isLoaded]);
 
   return (
-    <video
-      width="280"
-      height="175"
+    <video className='video'
       muted={isMuting}
       ref={videoRef}
       src={src}

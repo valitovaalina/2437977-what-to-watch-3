@@ -1,16 +1,16 @@
-import { ChangeEvent, Fragment, memo } from 'react';
+import { ChangeEvent, Fragment } from 'react';
 
 type RatingItemProps = {
   number: number;
-  handleInputChange: (evt: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function RatingItem({ number, handleInputChange }: RatingItemProps): React.ReactElement {
+function RatingItem({ number, onInputChange }: RatingItemProps): React.ReactElement {
   return (
     <Fragment key={number}>
       <input
         key={`star-${number}`}
-        onChange={handleInputChange}
+        onChange={onInputChange}
         className="rating__input"
         id={`star-${number}`}
         type="radio"
@@ -27,5 +27,4 @@ function RatingItem({ number, handleInputChange }: RatingItemProps): React.React
   );
 }
 
-export default memo(RatingItem);
-
+export default RatingItem;

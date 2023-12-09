@@ -11,6 +11,7 @@ import { getTimeLeft } from '@components/extra-functions/get-time-left';
 import PlayerState from '@components/player-state/player-state';
 
 function Player() {
+  const dispatch = useAppDispatch();
   const { id = '' } = useParams();
   const currentFilm = useAppSelector(getFilm);
   const isFilmLoadingStatus = useAppSelector((state) => state[Reducer.FILM_REDUCER].isFilmLoading);
@@ -29,7 +30,7 @@ function Player() {
     }
   };
 
-  const actByPlayPauseClick = () => {
+  const handleActByPlayPauseClick = () => {
     if (videoRef.current) {
       if (isPause) {
         videoRef.current.play();
@@ -41,12 +42,17 @@ function Player() {
     }
   };
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
-    if (id) {
+    let isMounted = true;
+
+    if (isMounted && id) {
       dispatch(fetchFilmByID(id));
       setIsPause(true);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id]);
 
   if (!currentFilm) {
@@ -82,21 +88,17 @@ function Player() {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={actByPlayPauseClick}>
+          <button type="button" className="player__play" onClick={handleActByPlayPauseClick}>
             {isPause
               ? <PlayerState viewBox={'0 0 19 19'} width={19} height={19} xlinkHref={'#play-s'} state={'Play'} />
               : <PlayerState viewBox={'0 0 14 21'} width={14} height={21} xlinkHref={'#pause'} state={'Pause'} />}
           </button>
           <div className="player__name">Transpotting</div>
-
           <button type="button" className="player__full-screen" onClick={() => {
             videoRef.current?.requestFullscreen();
           }}
           >
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen" />
-            </svg>
-            <span>Full screen</span>
+            <PlayerState viewBox={'0 0 27 27'} width={27} height={27} xlinkHref={'#full-screen'} state={'Full screen'} />
           </button>
         </div>
       </div>

@@ -1,14 +1,11 @@
 import { Review } from '@components/types';
+import { convertDate } from '@components/extra-functions/convert-date';
 
 type ReviewItemProps = {
   review: Review;
 };
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
-  const convertDate = (inputDateStr: string) => {
-    const inputDate = new Date(inputDateStr);
-    return inputDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
-  };
   return (
     <div className="review">
       <blockquote className="review__quote">

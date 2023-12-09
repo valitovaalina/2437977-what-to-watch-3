@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Fragment } from 'react';
+import './not-found-page.css';
 
 function NotFoundPage(): JSX.Element {
   return (
-    <Fragment>
+    <div className='error-page'>
       <h1>
         404. Page not found
       </h1>
       <Link to="/">Вернуться на главную</Link>
-    </Fragment>
+    </div>
   );
 }
 

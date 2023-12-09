@@ -2,7 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import FilmList from '@components/film-list/film-list';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus, SIMILAR_FILM_CARD_COUNT } from '@components/consts';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';
@@ -15,6 +15,7 @@ import Loader from '@components/loader/loader';
 import { setFavoriteCount } from '@store/actions';
 import { getFavCount } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
+import PlayerState from '@components/player-state/player-state';
 
 function FilmPage() {
   const { id = '' } = useParams();
@@ -26,19 +27,28 @@ function FilmPage() {
   const favCount = useAppSelector(getFavCount);
 
   useEffect(() => {
-    dispatch(fetchFilmByID(id));
-    dispatch(fetchSimilarByID(id));
-    dispatch(fetchReviewsByID(id));
-    if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchFavoriteFilms());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchFilmByID(id));
+      dispatch(fetchSimilarByID(id));
+      dispatch(fetchReviewsByID(id));
+
+      if (authStatus === AuthorizationStatus.Auth) {
+        dispatch(fetchFavoriteFilms());
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, authStatus]);
 
   if (!currentFilm) {
     return null;
   }
 
-  const addHandler = () => {
+  const handleAddClick = () => {
     dispatch(changeFilmFavoriteStatus({ filmId: currentFilm?.id, status: +(!currentFilm?.isFavorite) }));
     if (currentFilm?.isFavorite) {
       dispatch(setFavoriteCount(favCount - 1));
@@ -87,17 +97,13 @@ function FilmPage() {
                 {authStatus === AuthorizationStatus.Auth && (
                   <button
                     className="btn btn--list film-card__button"
-                    onClick={addHandler}
+                    onClick={handleAddClick}
                   >
-                    {currentFilm?.isFavorite ? (
-                      <svg viewBox="0 0 18 14" width="19" height="14">
-                        <use xlinkHref="#in-list" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add" />
-                      </svg>
-                    )}
+                    {currentFilm?.isFavorite
+                      ?
+                      <PlayerState viewBox={'0 0 18 14'} width={19} height={14} xlinkHref={'#in-list'} state={''} />
+                      :
+                      <PlayerState viewBox={'0 0 19 20'} width={19} height={20} xlinkHref={'#add'} state={''} />}
                     <span>My list</span>
                     <span className="film-card__count">{favCount}</span>
                   </button>
@@ -127,7 +133,7 @@ function FilmPage() {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={similarFilms} />
+          <FilmList films={similarFilms.slice(0, SIMILAR_FILM_CARD_COUNT)} />
         </section>
         <Footer />
       </div>

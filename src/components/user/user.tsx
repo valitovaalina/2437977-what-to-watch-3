@@ -30,7 +30,7 @@ function User(): JSX.Element {
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
+        <div className="user-block__avatar" role='user-block-avatar'>
           <img src={avatar || ''} alt="User avatar"/>
         </div>
       </li>

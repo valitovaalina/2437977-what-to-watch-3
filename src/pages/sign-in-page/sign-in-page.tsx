@@ -72,6 +72,7 @@ function SignInPage(): JSX.Element {
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
+                data-testid='user-email'
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
@@ -89,6 +90,7 @@ function SignInPage(): JSX.Element {
             </div>
             <div className="sign-in__field">
               <input
+                data-testid='user-password'
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"

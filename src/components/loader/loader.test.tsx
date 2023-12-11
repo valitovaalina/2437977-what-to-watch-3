@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Loader from './loader';
 
-describe('Load test', () => {
+describe('Component: Loader', () => {
   it('should render correctly', () => {
     render(<Loader />);
 

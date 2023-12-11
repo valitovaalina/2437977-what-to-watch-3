@@ -6,7 +6,7 @@ import { Action } from '@reduxjs/toolkit';
 import { createAPI } from '@services/api';
 import { AuthData, State, UserReview } from '@components/types';
 import { AppThunkDispatch, extractActionsTypes, takeTestFilm, takeTestFilms, takeTestReviews } from '@components/mocks/mocks';
-import { APIRoute } from '@components/consts';
+import { ApiRoute } from '@components/consts';
 import { changeFilmFavoriteStatus, changePromoFavoriteStatus, checkAuth, fetchFavoriteFilms, fetchFilmByID, fetchFilms, fetchPromoFilm, fetchReviewsByID, fetchSimilarByID, logIn, logOut, postReview } from './api-actions';
 
 describe('Async actions', () => {
@@ -25,7 +25,7 @@ describe('Async actions', () => {
 
   describe('checkAuth', () => {
     it('should dispatch "checkAuth.pending" and "checkAuth.fulfilled" with thunk "checkAuthAction', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Login).reply(200, []);
+      mockAxiosAdapter.onGet(ApiRoute.Login).reply(200, []);
 
       await store.dispatch(checkAuth());
       const actions = extractActionsTypes(store.getActions());
@@ -37,7 +37,7 @@ describe('Async actions', () => {
     });
 
     it('should dispatch "checkAuth.pending" and "checkAuth.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Login).reply(400);
+      mockAxiosAdapter.onGet(ApiRoute.Login).reply(400);
 
       await store.dispatch(checkAuth());
       const actions = extractActionsTypes(store.getActions());
@@ -53,7 +53,7 @@ describe('Async actions', () => {
     it('should dispatch "logIn.pending", "logIn.fulfilled" when server response 200', async () => {
       const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(APIRoute.Login).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, fakeServerReplay);
 
       await store.dispatch(logIn(fakeUser));
       const actions = extractActionsTypes(store.getActions());
@@ -68,7 +68,7 @@ describe('Async actions', () => {
 
   describe('logOut', () => {
     it('should dispatch "logOut.pending", "logOut.fulfilled" when server response 204', async () => {
-      mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204);
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
 
       await store.dispatch(logOut());
       const actions = extractActionsTypes(store.getActions());
@@ -82,7 +82,7 @@ describe('Async actions', () => {
 
   describe('fetchFilms', () => {
     it('should dispatch "fetchFilms.pending", "fetchFilms.fulfilled", when server response 200', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Films).reply(200, testFilms);
+      mockAxiosAdapter.onGet(ApiRoute.Films).reply(200, testFilms);
 
       await store.dispatch(fetchFilms());
 
@@ -100,7 +100,7 @@ describe('Async actions', () => {
     });
 
     it('should dispatch "fetchFilms.pending", "fetchFilms.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Films).reply(400, []);
+      mockAxiosAdapter.onGet(ApiRoute.Films).reply(400, []);
 
       await store.dispatch(fetchFilms());
       const actions = extractActionsTypes(store.getActions());
@@ -198,7 +198,7 @@ describe('Async actions', () => {
 
   describe('fetchPromoFilm', () => {
     it('should dispatch "fetchPromoFilm.pending", "fetchPromoFilm.fulfilled", when server response 200', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Promo).reply(200, testFilm);
+      mockAxiosAdapter.onGet(ApiRoute.Promo).reply(200, testFilm);
 
       await store.dispatch(fetchPromoFilm());
 
@@ -212,7 +212,7 @@ describe('Async actions', () => {
     });
 
     it('should dispatch "fetchPromoFilm.pending", "fetchPromoFilm.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Promo).reply(400);
+      mockAxiosAdapter.onGet(ApiRoute.Promo).reply(400);
 
       await store.dispatch(fetchPromoFilm());
       const actions = extractActionsTypes(store.getActions());
@@ -226,7 +226,7 @@ describe('Async actions', () => {
 
   describe('fetchFavoriteFilms', () => {
     it('should dispatch "fetchFavoriteFilms.pending", "fetchFavoriteFilms.fulfilled", when server response 200', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Favorite).reply(200, testFilms);
+      mockAxiosAdapter.onGet(ApiRoute.Favorite).reply(200, testFilms);
 
       await store.dispatch(fetchFavoriteFilms());
 
@@ -240,7 +240,7 @@ describe('Async actions', () => {
     });
 
     it('should dispatch "fetchFavoriteFilms.pending", "fetchFavoriteFilms.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Favorite).reply(400, []);
+      mockAxiosAdapter.onGet(ApiRoute.Favorite).reply(400, []);
 
       await store.dispatch(fetchFavoriteFilms());
       const actions = extractActionsTypes(store.getActions());

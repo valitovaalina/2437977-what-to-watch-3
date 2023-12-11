@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Film } from '@components/types';
+import { convertTime } from '@components/extra-functions/convert-time';
 
 type DetailsProps = {
   currentFilm: Film | null;
 }
 
-function Details({currentFilm}:DetailsProps): JSX.Element {
+function Details({ currentFilm }: DetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -27,7 +28,7 @@ function Details({currentFilm}:DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{currentFilm?.runTime}</span>
+          <span className="film-card__details-value">{convertTime(Number(currentFilm?.runTime))}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

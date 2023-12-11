@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useMemo, useRef, useState } from 'react';
 
-import { AppRoute, AuthorizationStatus, LogInState, Reducer, reEmail, rePassword } from '@components/consts';
+import { AppRoute, AuthorizationStatus, LogInState, Reducer, RE_EMAIL, RE_PASSWORD } from '@components/consts';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { logIn } from '@store/api-actions';
 import Footer from '@components/footer/footer';
@@ -19,11 +19,11 @@ function SignInPage(): JSX.Element {
   const loginState = useAppSelector((state) => state[Reducer.USER_REDUCER].loginState);
   const formRef = useRef(null);
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    const isEmailCorrect = () => emailField === null || !reEmail.test(emailField);
-    const isPasswordCorrect = () => passwordField === null || !rePassword.test(passwordField);
+    const isEmailCorrect = () => emailField === null || !RE_EMAIL.test(emailField);
+    const isPasswordCorrect = () => passwordField === null || !RE_PASSWORD.test(passwordField);
 
     if (formRef.current) {
       if (isEmailCorrect() && isPasswordCorrect()) {
@@ -65,13 +65,14 @@ function SignInPage(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" ref={formRef} onSubmit={submitHandler}>
+        <form action="#" className="sign-in__form" ref={formRef} onSubmit={handleSubmit}>
           <div className="sign-in__message">
             {errorMessage}
           </div>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
+                data-testid='user-email'
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
@@ -89,6 +90,7 @@ function SignInPage(): JSX.Element {
             </div>
             <div className="sign-in__field">
               <input
+                data-testid='user-password'
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"

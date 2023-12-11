@@ -14,8 +14,8 @@ describe('MainReducer Slice', () => {
   beforeEach(() => {
     initialState = {
       genre: Genre.All,
-      filmList: [],
-      sortedFilmList: [],
+      films: [],
+      sortedFilms: [],
       filmCardCount: 0,
       dataIsLoading: false,
       error: null,
@@ -82,8 +82,8 @@ describe('MainReducer Slice', () => {
       payload: testFilms,
     });
 
-    expect(result.filmList).toEqual(expectedFilmList);
-    expect(result.sortedFilmList).toEqual(expectedFilmList);
+    expect(result.films).toEqual(expectedFilmList);
+    expect(result.sortedFilms).toEqual(expectedFilmList);
     expect(result.dataIsLoading).toEqual(expectedDataIsLoading);
     expect(result.filmCardCount).toEqual(expectedFilmCardCount);
   });

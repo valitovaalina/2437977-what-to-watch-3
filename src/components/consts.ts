@@ -1,18 +1,12 @@
 export const TIMEOUT_SHOW_ERROR = 2000;
-export const visibleFilmCardCount = 8;
-export const hoverFilmCardTime = 1000;
-export const minLengthReview = 50;
-export const maxLengthReview = 1000;
-export const timeTranslation = 60;
-export const rePassword = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
-export const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-
-export const Setting = {
-  filmCardTitle: 'The Grand Budapest Hotel',
-  filmCardGenre: 'Drama',
-  filmCardYear: 2014
-};
+export const VISIBLE_FILM_CARD_COUNT = 8;
+export const HOVER_FILM_CARD_TIME = 1000;
+export const MIN_LENGTH_REVIEW = 50;
+export const MAX_LENGTH_REVIEW = 1000;
+export const TIME_TRANSLATION = 60;
+export const SIMILAR_FILM_CARD_COUNT = 4;
+export const RE_PASSWORD = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/;
+export const RE_EMAIL = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 export enum AppRoute {
   Root = '/',
@@ -43,7 +37,7 @@ export enum Genre {
 }
 
 
-export enum APIRoute {
+export enum ApiRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',

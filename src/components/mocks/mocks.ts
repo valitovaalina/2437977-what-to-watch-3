@@ -66,7 +66,7 @@ export const takeTestFilms = (): Film[] => [
     scoresCount: 14422,
     rating: 2.6,
     description:
-    'Young nobleman Orlando is commanded by Queen Elizabeth I to stay forever young. Miraculously, he does just that. The film follows him as he moves through several centuries of British history, experiencing a variety of lives and relationships along the way, and even changing sex.',
+      'Young nobleman Orlando is commanded by Queen Elizabeth I to stay forever young. Miraculously, he does just that. The film follows him as he moves through several centuries of British history, experiencing a variety of lives and relationships along the way, and even changing sex.',
     director: 'Sally Potter',
     starring: ['Tilda Swinton', 'Billy Zane', 'Quentin Crisp'],
     runTime: '94',
@@ -76,7 +76,7 @@ export const takeTestFilms = (): Film[] => [
   }
 ];
 
-export const takeTestReviews = () : Review[] => [
+export const takeTestReviews = (): Review[] => [
   {
     id: 1,
     rating: 8.0,

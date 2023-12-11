@@ -44,8 +44,8 @@ export type UserData = {
 
 export type AppState = {
   genre: Genre;
-  filmList: Film[];
-  sortedFilmList: Film[];
+  films: Film[];
+  sortedFilms: Film[];
   filmCardCount: number;
   dataIsLoading: boolean;
   error: string | null;

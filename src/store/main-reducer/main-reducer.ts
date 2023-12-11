@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '@components/types';
 import { changeGenre, setError, setFavoriteCount, setFilmCardCount } from '../actions';
 import { changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from '@store/api-actions';
-import { Genre, Reducer, visibleFilmCardCount } from '@components/consts';
+import { Genre, Reducer, VISIBLE_FILM_CARD_COUNT } from '@components/consts';
 
 const initialState: AppState = {
-  filmList: [],
-  sortedFilmList: [],
+  films: [],
+  sortedFilms: [],
   genre: Genre.All,
   filmCardCount: 0,
   dataIsLoading: false,
@@ -25,12 +25,12 @@ export const mainReducer = createSlice({
     builder
       .addCase(changeGenre, (state, action) => {
         state.genre = action.payload;
-        state.sortedFilmList = (state.genre === Genre.All) ? state.filmList : state.filmList.filter((film) => film.genre === state.genre);
-        state.filmCardCount = Math.min(state.sortedFilmList.length, 8);
+        state.sortedFilms = (state.genre === Genre.All) ? state.films : state.films.filter((film) => film.genre === state.genre);
+        state.filmCardCount = Math.min(state.sortedFilms.length, 8);
       })
       .addCase(setFilmCardCount, (state) => {
-        const currentGenreFilms = state.sortedFilmList.length;
-        state.filmCardCount = (state.filmCardCount + visibleFilmCardCount > currentGenreFilms) ? currentGenreFilms : state.filmCardCount + visibleFilmCardCount;
+        const currentGenreFilms = state.sortedFilms.length;
+        state.filmCardCount = (state.filmCardCount + VISIBLE_FILM_CARD_COUNT > currentGenreFilms) ? currentGenreFilms : state.filmCardCount + VISIBLE_FILM_CARD_COUNT;
       })
       .addCase(setError, (state, action) => {
         state.error = action.payload;
@@ -39,9 +39,9 @@ export const mainReducer = createSlice({
         state.dataIsLoading = true;
       })
       .addCase(fetchFilms.fulfilled, (state, action) => {
-        state.filmList = action.payload;
-        state.sortedFilmList = action.payload;
-        state.filmCardCount = Math.min(state.filmList.length, 8);
+        state.films = action.payload;
+        state.sortedFilms = action.payload;
+        state.filmCardCount = Math.min(state.films.length, 8);
         state.dataIsLoading = false;
       })
       .addCase(fetchPromoFilm.fulfilled, (state, action) => {

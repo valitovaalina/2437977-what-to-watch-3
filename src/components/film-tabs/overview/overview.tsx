@@ -24,7 +24,7 @@ function Overview({ currentFilm }: OverviewProps): JSX.Element {
         </p>
         <p className="film-card__starring">
           <strong>
-            Starring:
+            {'Starring: '}
             {currentFilm?.starring.map((actor) => (
               <React.Fragment key={actor}>
                 {actor} {`${currentFilm?.starring[currentFilm?.starring.length - 1] === actor ? 'and other' : ''}`}

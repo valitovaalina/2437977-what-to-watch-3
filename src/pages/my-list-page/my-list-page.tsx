@@ -10,17 +10,26 @@ import { fetchFavoriteFilms } from '@store/api-actions';
 import FilmCard from '@components/film-card/film-card';
 import { getFavFilms } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
+import { useNavigate } from 'react-router-dom';
 
 function MyListPage(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
   const favoriteFilms = useAppSelector(getFavFilms);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth) {
+    let isMounted = true;
+
+    if (isMounted && authStatus === AuthorizationStatus.Auth) {
       dispatch(fetchFavoriteFilms());
+      navigate('/mylist');
     }
-  }, [authStatus, dispatch]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [authStatus, dispatch, navigate]);
 
   return (
     <div className="user-page">

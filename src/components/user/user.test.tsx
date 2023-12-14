@@ -30,8 +30,8 @@ describe('Component: User', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Sign in')).toBeInTheDocument();
-    expect(screen.queryByText('Sign out')).not.toBeInTheDocument();
+    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Sign out/i)).not.toBeInTheDocument();
   });
 
   it('should render Sign out text if user is authorized', () => {
@@ -55,7 +55,7 @@ describe('Component: User', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Sign out')).toBeInTheDocument();
-    expect(screen.queryByText('Sign in')).not.toBeInTheDocument();
+    expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Sign in/i)).not.toBeInTheDocument();
   });
 });

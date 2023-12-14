@@ -5,9 +5,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestFilm, takeTestFilms, takeTestReviews } from '@components/mocks/mocks';
+import { takeTestFilm, takeTestFilms, takeTestReviews } from '@mocks/mocks';
 import { State } from '@components/types';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 import FilmPage from './film-page';
 
 describe('Component: FilmPage', () => {

@@ -5,7 +5,7 @@ import User from '@components/user/user';
 import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 import { fetchFavoriteFilms } from '@store/api-actions';
 import FilmCard from '@components/film-card/film-card';
 import { getFavFilms } from '@store/main-reducer/main-selectors';

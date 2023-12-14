@@ -1,5 +1,5 @@
 import { changeGenre } from '@store/actions';
-import { Genre } from '../consts';
+import { Genre } from '@consts/consts';
 import { useAppDispatch } from '../hooks/hooks';
 
 type GenreListItemProps = {
@@ -12,7 +12,7 @@ function GenreListItem({ genre, currentGenre }: GenreListItemProps): React.React
 
   return (
     <li key={genre} className={`catalog__genres-item ${genre === currentGenre ? 'catalog__genres-item--active' : ''}`}>
-      <button className="catalog__genres-link"
+      <button className="catalog__genres-link" data-testid='genre-item'
         onClick={() => {
           dispatch(changeGenre(genre));
         }}

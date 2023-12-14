@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { takeTestFilm } from '@components/mocks/mocks';
+import { takeTestFilm } from '@mocks/mocks';
 import GenreListItem from './genre-list-item';
 import { createAPI } from '@services/api';
 import { configureMockStore } from '@jedmao/redux-mock-store';

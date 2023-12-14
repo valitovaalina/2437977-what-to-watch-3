@@ -1,18 +1,16 @@
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import MainPage from './main-page';
-import { createAPI } from '../../services/api';
+import { createAPI } from '@services/api';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestFilm, takeTestFilms } from '@components/mocks/mocks';
+import { takeTestFilm, takeTestFilms } from '@mocks/mocks';
 import { State } from '@components/types';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 
 describe('Component: MainPage', () => {
-  const testFilm = takeTestFilm();
-  const testFilms = takeTestFilms();
   const api = createAPI();
   const middlewares = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<
@@ -20,6 +18,8 @@ describe('Component: MainPage', () => {
     Action,
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
+  const testFilm = takeTestFilm();
+  const testFilms = takeTestFilms();
 
   it('should render correctly if authorization status is NoAuth', () => {
     const store = mockStore({

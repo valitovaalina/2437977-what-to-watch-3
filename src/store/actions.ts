@@ -1,7 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { AuthorizationStatus, Genre } from '@components/consts';
-import { Film, Review, UserData } from '@components/types';
+import { Genre } from '@consts/consts';
 
 export const Action = {
   CHANGE_GENRE: 'main/changeGenre',

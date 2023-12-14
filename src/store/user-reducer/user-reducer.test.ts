@@ -1,4 +1,4 @@
-import { AuthorizationStatus, LogInState } from '@components/consts';
+import { AuthorizationStatus, LogInState } from '@consts/consts';
 import { userReducer } from './user-reducer';
 import { UserState } from '@components/types';
 import { checkAuth, logIn, logOut } from '../api-actions';

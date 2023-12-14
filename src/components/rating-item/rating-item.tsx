@@ -9,6 +9,7 @@ function RatingItem({ number, onInputChange }: RatingItemProps): React.ReactElem
   return (
     <Fragment key={number}>
       <input
+        data-testid='rating-item'
         key={`star-${number}`}
         onChange={onInputChange}
         className="rating__input"

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Overview from './overview';
-import { takeTestFilm } from 'src/components/mocks/mocks';
+import { takeTestFilm } from '@mocks/mocks';
 
 describe('Component: Overview', () => {
   it('should render correctly', () => {

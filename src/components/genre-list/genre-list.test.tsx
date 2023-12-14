@@ -1,17 +1,15 @@
-import MyListPage from './my-list-page';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { createAPI } from '@services/api';
+import GenreList from './genre-list';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { takeTestFilms } from '@mocks/mocks';
-import { State } from '@components/types';
-import { AuthorizationStatus } from '@consts/consts';
+import { createAPI } from '@services/api';
+import thunk from 'redux-thunk';
+import { State } from '../types';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 
-describe('Component: MyListPage', () => {
-  const testFilms = takeTestFilms();
+describe('Component: GenreList', () => {
   const api = createAPI();
   const middlewares = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<
@@ -21,24 +19,23 @@ describe('Component: MyListPage', () => {
   >(middlewares);
 
   it('should render correctly', () => {
+    const testFilms = takeTestFilms();
     const store = mockStore({
-      USER_REDUCER: {
-        authorizationStatus: AuthorizationStatus.Auth,
-      },
       MAIN_REDUCER: {
-        favoriteFilms: testFilms,
-        favoriteCount: testFilms.length,
+        films: testFilms,
       }
     });
 
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <MyListPage />
+          <GenreList />
         </MemoryRouter>
       </Provider>
     );
 
-    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+    const genreItems = screen.getAllByTestId('genre-item');
+
+    expect(genreItems.length).toBe(testFilms.length);
   });
 });

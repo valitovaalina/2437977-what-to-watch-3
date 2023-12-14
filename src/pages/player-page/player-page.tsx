@@ -5,7 +5,7 @@ import './player-page.css';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { fetchFilmByID } from '@store/api-actions';
 import { getFilm } from '@store/film-reducer/film-selectors';
-import { Reducer } from '@components/consts';
+import { Reducer } from '@consts/consts';
 import Loader from '@components/loader/loader';
 import { getTimeLeft } from '@components/extra-functions/get-time-left';
 import PlayerState from '@components/player-state/player-state';

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '@components/types';
 import { changeGenre, setError, setFavoriteCount, setFilmCardCount } from '../actions';
 import { changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from '@store/api-actions';
-import { Genre, Reducer, VISIBLE_FILM_CARD_COUNT } from '@components/consts';
+import { Genre, Reducer, VISIBLE_FILM_CARD_COUNT } from '@consts/consts';
 
 const initialState: AppState = {
   films: [],

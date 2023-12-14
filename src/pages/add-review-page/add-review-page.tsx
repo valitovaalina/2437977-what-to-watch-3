@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import './add-review-page.css';
-import { AppRoute, AuthorizationStatus } from '@components/consts';
+import { AppRoute, AuthorizationStatus } from '@consts/consts';
 import AddReviewForm from '@components/add-review-form/add-review-form';
 import User from '@components/user/user';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';

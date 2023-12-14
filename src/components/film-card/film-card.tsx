@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './film-card.css';
 import { Film } from '../types';
 import VideoPlayer from '../video-player/video-player';
-import { HOVER_FILM_CARD_TIME } from '../consts';
+import { HOVER_FILM_CARD_TIME } from '@consts/consts';
 
 type FilmCardProps = {
   film: Film;
@@ -27,7 +27,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   }, [needToActiveVideo]);
 
   return (
-    <Link className="small-film-card__link small-film-card catalog__films-card" to={`/films/${film.id}`} onMouseEnter={() => setNeedToActiveVideo(true)} onMouseLeave={() => {
+    <Link data-testid='film-card' className="small-film-card__link small-film-card catalog__films-card" to={`/films/${film.id}`} onMouseEnter={() => setNeedToActiveVideo(true)} onMouseLeave={() => {
       setNeedToActiveVideo(false);
       setIsPlaying(false);
     }}

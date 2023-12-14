@@ -3,7 +3,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { mainReducer } from './main-reducer/main-reducer';
 import { filmReducer } from './film-reducer/film-reducer';
 import { userReducer } from './user-reducer/user-reducer';
-import { Reducer } from '@components/consts';
+import { Reducer } from '@consts/consts';
 
 const reducer = combineReducers({
   [Reducer.FILM_REDUCER]: filmReducer.reducer,

@@ -1,5 +1,5 @@
 import { State } from '@components/types';
-import { Reducer } from '@components/consts';
+import { Reducer } from '@consts/consts';
 
 export const getCurrentGenre = (state: State) => state[Reducer.MAIN_REDUCER].genre;
 export const getFilmList = (state: State) => state[Reducer.MAIN_REDUCER].films;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { logOut } from '@store/api-actions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { AppRoute, AuthorizationStatus } from '../consts';
+import { AppRoute, AuthorizationStatus } from '@consts/consts';
 import { getAuthStatus, getAvatar } from '@store/user-reducer/user-selectors';
 import './user.css';
 

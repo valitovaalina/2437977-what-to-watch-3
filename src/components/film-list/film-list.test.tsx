@@ -3,7 +3,7 @@ import FilmList from './film-list';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestFilms } from '@components/mocks/mocks';
+import { takeTestFilms } from '@mocks/mocks';
 
 describe('Component: FilmList', () => {
   const mockStore = configureMockStore();

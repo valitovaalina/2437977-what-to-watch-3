@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/hooks';
 import { postReview } from '@store/api-actions';
 import RatingItem from '../rating-item/rating-item';
-import { MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW } from '../consts';
+import { MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW } from '@consts/consts';
 
 function AddReviewForm() {
   const { id = '' } = useParams();

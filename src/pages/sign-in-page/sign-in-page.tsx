@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useMemo, useRef, useState } from 'react';
 
-import { AppRoute, AuthorizationStatus, LogInState, Reducer, RE_EMAIL, RE_PASSWORD } from '@components/consts';
+import { AppRoute, AuthorizationStatus, LogInState, Reducer, RE_EMAIL, RE_PASSWORD } from '@consts/consts';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
 import { logIn } from '@store/api-actions';
 import Footer from '@components/footer/footer';

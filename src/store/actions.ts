@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { Genre } from '@components/consts';
+import { Genre } from '@consts/consts';
 
 export const Action = {
   CHANGE_GENRE: 'main/changeGenre',

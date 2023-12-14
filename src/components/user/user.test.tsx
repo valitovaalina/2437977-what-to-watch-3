@@ -3,7 +3,7 @@ import User from './user';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../consts';
+import { AppRoute, AuthorizationStatus } from '@consts/consts';
 
 const mockStore = configureMockStore();
 const initialEntries: (AppRoute | string)[] = [AppRoute.Root];

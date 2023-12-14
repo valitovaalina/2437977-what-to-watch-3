@@ -1,14 +1,14 @@
 import MyListPage from './my-list-page';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { createAPI } from '../../services/api';
+import { createAPI } from '@services/api';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestFilms } from '@components/mocks/mocks';
+import { takeTestFilms } from '@mocks/mocks';
 import { State } from '@components/types';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 
 describe('Component: MyListPage', () => {
   const testFilms = takeTestFilms();

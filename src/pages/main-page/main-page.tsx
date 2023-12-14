@@ -10,7 +10,7 @@ import User from '@components/user/user';
 import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
 import { getFavCount, getFilmCardCount, getGenreFilmList, getPromo } from '@store/main-reducer/main-selectors';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 import { changePromoFavoriteStatus, fetchFavoriteFilms } from '@store/api-actions';
 import { setFavoriteCount } from '@store/actions';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';

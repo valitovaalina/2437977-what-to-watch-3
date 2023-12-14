@@ -3,7 +3,7 @@ import ReviewItem from './review-item';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestReviews } from 'src/components/mocks/mocks';
+import { takeTestReviews } from '@mocks/mocks';
 
 describe('Component: ReviewItem', () => {
   const mockStore = configureMockStore();

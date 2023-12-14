@@ -7,7 +7,7 @@ import { State } from '../types';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '@services/api';
 import thunk from 'redux-thunk';
-import { takeTestFilm, takeTestReviews } from '../mocks/mocks';
+import { takeTestFilm, takeTestReviews } from '@mocks/mocks';
 
 describe('Component: FilmTabs', () => {
   const api = createAPI();

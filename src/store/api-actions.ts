@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiRoute, TIMEOUT_SHOW_ERROR } from '@components/consts';
+import { ApiRoute, TIMEOUT_SHOW_ERROR } from '@consts/consts';
 import { AppDispatch, AuthData, Film, Review, State, UserData, UserReview } from '@components/types';
 import { setError } from './actions';
 

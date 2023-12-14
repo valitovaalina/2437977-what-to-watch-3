@@ -21,6 +21,7 @@ export default defineConfig({
       '@mocks': path.resolve(__dirname, './src/mocks'),
       '@services': path.resolve(__dirname, './src/services'),
       '@store': path.resolve(__dirname, './src/store'),
+      '@consts': path.resolve(__dirname, './src/consts'),
     },
   },
 });

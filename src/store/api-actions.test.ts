@@ -5,8 +5,8 @@ import { Action } from '@reduxjs/toolkit';
 
 import { createAPI } from '@services/api';
 import { AuthData, State, UserReview } from '@components/types';
-import { AppThunkDispatch, extractActionsTypes, takeTestFilm, takeTestFilms, takeTestReviews } from '@components/mocks/mocks';
-import { ApiRoute } from '@components/consts';
+import { AppThunkDispatch, extractActionsTypes, takeTestFilm, takeTestFilms, takeTestReviews } from '@mocks/mocks';
+import { ApiRoute } from '@consts/consts';
 import { changeFilmFavoriteStatus, changePromoFavoriteStatus, checkAuth, fetchFavoriteFilms, fetchFilmByID, fetchFilms, fetchPromoFilm, fetchReviewsByID, fetchSimilarByID, logIn, logOut, postReview } from './api-actions';
 
 describe('Async actions', () => {

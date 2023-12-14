@@ -59,4 +59,3 @@ export enum LogInState {
   NotValidPassword = 'NotValidPassword',
   NotValidEmailAndPassword = 'NotValidEmailAndPassword',
 }
-

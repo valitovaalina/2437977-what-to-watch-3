@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { AuthorizationStatus, Genre } from '@components/consts';
+import { AuthorizationStatus, Genre } from '@consts/consts';
 import { Film, Review, UserData } from '@components/types';
 
 export const Action = {

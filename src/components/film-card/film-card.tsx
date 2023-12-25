@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './film-card.css';
 import { Film } from '../types';
 import VideoPlayer from '../video-player/video-player';
-import { HOVER_FILM_CARD_TIME } from '../consts';
+import { HOVER_FILM_CARD_TIME } from '@consts/consts';
 
 type FilmCardProps = {
   film: Film;

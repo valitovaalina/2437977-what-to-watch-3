@@ -1,6 +1,6 @@
-import { takeTestFilm, takeTestFilms } from '@components/mocks/mocks';
+import { takeTestFilm, takeTestFilms } from '@mocks/mocks';
 import { AppState } from '@components/types';
-import { Genre } from 'src/components/consts';
+import { Genre } from '@consts/consts';
 import { mainReducer } from './main-reducer';
 import { changeGenre, setError, setFavoriteCount } from '../actions';
 import { changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from '../api-actions';

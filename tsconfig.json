@@ -45,6 +45,9 @@
       "@services/*": [
         "./src/services/*"
       ],
+      "@consts/*": [
+        "./src/consts/*"
+      ],
     },
   },
   "include": ["src", "vite.config.ts"],

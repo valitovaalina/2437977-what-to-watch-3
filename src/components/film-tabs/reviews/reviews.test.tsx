@@ -1,9 +1,10 @@
 import { Provider } from 'react-redux';
-import Reviews from './reviews';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { takeTestReviews } from 'src/components/mocks/mocks';
+
+import Reviews from './reviews';
+import { takeTestReviews } from '@mocks/mocks';
 
 describe('Component: Reviews', () => {
   const mockStore = configureMockStore();

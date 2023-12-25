@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { AppRoute } from '../consts';
+import { AppRoute } from '@consts/consts';
 
 function Logo(): React.ReactElement {
   return (

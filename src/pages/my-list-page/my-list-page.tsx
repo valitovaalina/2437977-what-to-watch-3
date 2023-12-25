@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './my-list-page.css';
 import User from '@components/user/user';
 import Footer from '@components/footer/footer';
 import Logo from '@components/logo/logo';
 import { useAppDispatch, useAppSelector } from '@components/hooks/hooks';
-import { AuthorizationStatus } from '@components/consts';
+import { AuthorizationStatus } from '@consts/consts';
 import { fetchFavoriteFilms } from '@store/api-actions';
 import FilmCard from '@components/film-card/film-card';
 import { getFavFilms } from '@store/main-reducer/main-selectors';
 import { getAuthStatus } from '@store/user-reducer/user-selectors';
-import { useNavigate } from 'react-router-dom';
 
 function MyListPage(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);

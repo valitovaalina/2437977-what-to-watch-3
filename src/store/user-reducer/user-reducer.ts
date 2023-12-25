@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, LogInState, Reducer } from '@components/consts';
+import { AuthorizationStatus, LogInState, Reducer } from '@consts/consts';
 import { UserState } from '@components/types';
 import { dropToken, saveToken } from '@services/token';
 import { checkAuth, logIn, logOut, } from '../api-actions';

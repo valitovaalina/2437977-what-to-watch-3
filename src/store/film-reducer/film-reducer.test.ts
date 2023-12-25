@@ -1,4 +1,4 @@
-import { takeTestFilm, takeTestFilms, takeTestReviews } from '@components/mocks/mocks';
+import { takeTestFilm, takeTestFilms, takeTestReviews } from '@mocks/mocks';
 import { FilmState } from '@components/types';
 import { filmReducer } from './film-reducer';
 import { changeFilmFavoriteStatus, fetchFilmByID, fetchReviewsByID, fetchSimilarByID } from '../api-actions';

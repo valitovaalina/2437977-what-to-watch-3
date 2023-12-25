@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { FilmState } from '@components/types';
 import { fetchReviewsByID, fetchFilmByID, fetchSimilarByID, changeFilmFavoriteStatus } from '@store/api-actions';
-import { Reducer } from '@components/consts';
+import { Reducer } from '@consts/consts';
 
 const initialState: FilmState = {
   film: null,

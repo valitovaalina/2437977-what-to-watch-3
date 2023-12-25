@@ -1,4 +1,4 @@
-import { TIME_TRANSLATION } from '../consts';
+import { TIME_TRANSLATION } from '@consts/consts';
 
 export const getTimeLeft = (timeLeft: number) => {
   const formatTime = (time: number) => time > 9 ? time : `0${time}`;

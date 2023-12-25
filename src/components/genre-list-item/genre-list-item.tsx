@@ -1,5 +1,5 @@
 import { changeGenre } from '@store/actions';
-import { Genre } from '../consts';
+import { Genre } from '@consts/consts';
 import { useAppDispatch } from '../hooks/hooks';
 
 type GenreListItemProps = {

@@ -2,7 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import FilmList from '@components/film-list/film-list';
-import { AuthorizationStatus, SIMILAR_FILM_CARD_COUNT } from '@components/consts';
+import { AuthorizationStatus, SIMILAR_FILM_CARD_COUNT } from '@consts/consts';
 import './film-page.css';
 import FilmTabs from '@components/film-tabs/film-tabs';
 import User from '@components/user/user';

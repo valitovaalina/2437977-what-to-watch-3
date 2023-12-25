@@ -1,5 +1,5 @@
 import { store } from '../store/index.js';
-import { AuthorizationStatus, Genre, LogInState } from './consts.ts';
+import { AuthorizationStatus, Genre, LogInState } from '@consts/consts';
 
 export type Film = {
   id: string;

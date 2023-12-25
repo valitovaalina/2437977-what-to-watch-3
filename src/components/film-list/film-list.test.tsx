@@ -1,28 +1,27 @@
 import { Provider } from 'react-redux';
+import FilmList from './film-list';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import { takeTestFilms } from '@mocks/mocks';
 
-import Reviews from './reviews';
-import { takeTestReviews } from '@mocks/mocks';
-
-describe('Component: Reviews', () => {
+describe('Component: FilmList', () => {
   const mockStore = configureMockStore();
 
   it('should render correctly', () => {
     const store = mockStore();
-    const reviews = takeTestReviews();
+    const testFilms = takeTestFilms();
 
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <Reviews reviews={reviews} />
+          <FilmList films={testFilms} />
         </MemoryRouter>
       </Provider>
     );
 
-    const reviewItems = screen.getAllByTestId('review-item');
+    const cardsFilm = screen.getAllByTestId('film-card');
 
-    expect(reviewItems.length).toBe(reviews.length);
+    expect(cardsFilm.length).toBe(testFilms.length);
   });
 });

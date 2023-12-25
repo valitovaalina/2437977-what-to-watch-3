@@ -12,8 +12,6 @@ import { State } from '@components/types';
 import { AuthorizationStatus } from '@consts/consts';
 
 describe('Component: MainPage', () => {
-  const testFilm = takeTestFilm();
-  const testFilms = takeTestFilms();
   const api = createAPI();
   const middlewares = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<
@@ -21,6 +19,8 @@ describe('Component: MainPage', () => {
     Action,
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
+  const testFilm = takeTestFilm();
+  const testFilms = takeTestFilms();
 
   it('should render correctly if authorization status is NoAuth', () => {
     const store = mockStore({

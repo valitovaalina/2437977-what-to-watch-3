@@ -27,7 +27,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   }, [needToActiveVideo]);
 
   return (
-    <Link className="small-film-card__link small-film-card catalog__films-card" to={`/films/${film.id}`} onMouseEnter={() => setNeedToActiveVideo(true)} onMouseLeave={() => {
+    <Link data-testid='film-card' className="small-film-card__link small-film-card catalog__films-card" to={`/films/${film.id}`} onMouseEnter={() => setNeedToActiveVideo(true)} onMouseLeave={() => {
       setNeedToActiveVideo(false);
       setIsPlaying(false);
     }}
